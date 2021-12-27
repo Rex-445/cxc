@@ -1,0 +1,5 @@
+CRS:dbK
+MRS:bfA,dbK,bfSA
+FRS:bfSP,fSS
+AIRBORNE:bfA
+DEFENSIVE:bSS,fSS

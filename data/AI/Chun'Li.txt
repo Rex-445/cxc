@@ -1,0 +1,5 @@
+CRS:bfKK,fbKK
+MRS:dfA,fbKK
+FRS:dfA
+AIRBORNE:fbKK
+DEFENSIVE:dfA

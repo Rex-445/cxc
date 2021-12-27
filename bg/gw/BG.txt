@@ -1,0 +1,12 @@
+BG Name: The Great Wall
+
+image;bg/gw/sky.png; BG; CameraType: 2
+loop: 2; offset: 800, 250; zpos: .1
+image;bg/gw/Base.png; BG2; CameraType: 2
+loop: 1; offset: 0, 180; zpos: .5; startpoint: 0;
+image;bg/gw/hill.png; BG2; CameraType: 2
+loop: 2; offset: 0, 215; zpos: .5; startpoint: 800;
+image;bg/gw/ground; Prop; CameraType: 1
+loop: 2; offset: 832, -25; zpos: 1; startpoint: 0;
+image;bg/gw/boarder; Prop; CameraType: 2
+loop: 2; offset: 558, 180; zpos: .5; startpoint: 234;

@@ -1,0 +1,5 @@
+BG:bg/sp/bg.txt; Sound:BGM/The Old Prison.wma
+BG:bg/bc/bg.txt; Sound:BGM/The Junkyard.wma
+BG:bg/ft/bg.txt; Sound:BGM/The Tower.wma
+BG:bg/qi/bg.txt; Sound:BGM/The Forsaken Island.wma
+BG:bg/gw/bg.txt; Sound:BGM/The Great Wall.wav

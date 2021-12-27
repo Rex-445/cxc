@@ -1,0 +1,10 @@
+BG Name: The Tower
+
+image;bg/ft/Sky.png; BG; CameraType: 2
+loop: 2; offset: 1444, 40; zpos: .3
+image;bg/ft/Wall_Back; Prop; CameraType: 2
+loop: 2; offset: 1444, 40; zpos: 0.4
+image;bg/ft/Base2.png; BG2; CameraType: 2
+loop: 2; offset: 1296, 40; zpos: .7
+image;bg/ft/Animatable/f; Prop; CameraType: 2
+loop: 8; offset: 324, 261; zpos: .7; startpoint: 4.4; anim:True; length: 13; speed: .25; child:True;

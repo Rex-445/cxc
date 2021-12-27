@@ -1,0 +1,6 @@
+BG Name: The Old Prison
+
+image;bg/sp/Base.png; BG; CameraType: 2
+loop: 3; offset: 554, 0; zpos: 1
+image;bg/sp/Animatable/fire; Prop; CameraType: 2
+loop: 6; offset: 277, 325; startpoint: 0; zpos: 1; anim:True; length: 7; speed: .35; child:False; vel_x: 0; vel_y: 0; sound: 0; soundPath:None

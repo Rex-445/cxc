@@ -1,0 +1,7 @@
+BG Name: The JunkYard
+
+image;bg/bc/Base.png; BG; CameraType: 2
+loop: 1; offset: 554, 0; zpos: .6
+//
+image;bg/bc/trash_foreground.png; FG; CameraType: 2
+loop: 2; offset: 800, -150; startpoint: 0; size: .01; zpos: 1.5; anim:False; length: 0; speed: .15; child:False; vel_x: 0; vel_y: 0; sound: 0; soundPath:None

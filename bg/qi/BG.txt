@@ -1,0 +1,12 @@
+BG Name: Forbidden Island
+
+image;bg/qi/Base.png; BG; CameraType: 2
+loop: 2; offset: 800, 200; zpos: .01
+image;bg/qi/Animatable/qi; Prop; CameraType: 2
+loop: 2; offset: 800, 306; zpos: .01; startpoint: 218; anim:True; length: 3; speed: .25; child:True;
+image;bg/qi/stone_left; Prop; CameraType: 2
+loop: 1; offset: 0, 200; zpos: 1.2; startpoint: 0; anim:False; length: 0; speed: 0;
+image;bg/qi/ground; Prop; CameraType: 2
+loop: 2; offset: 799, 0; zpos: 1; startpoint: 0; anim:False; length: 0; speed: 0;
+image;bg/qi/stone_left_FG.png; FG; CameraType: 2
+loop: 1; offset: 0, 0; zpos: 1.8
