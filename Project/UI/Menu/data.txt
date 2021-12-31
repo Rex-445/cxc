@@ -22,9 +22,13 @@ Position:500,177; Size:13,1; Image&Name: Text_BG_Size; Stage: Stage_Select; Item
 //Champions Names End
 //
 //
-//Champions Description
-Position:160,170; Size:1.2,1; Image&Name: Enter Your Name; Stage: EnterName; ItemType: InputField; Next: PlayerName; Color:255,255,0
-//Champions Description End
+//Player Details
+Position:160,170; Size:1.2,1; Image&Name: Enter Your Name; Stage: PlayerDetails; ItemType: InputField; Next: PlayerName; Color:255,255,0
+Position:260,130; Size:.7,.7; Image&Name: next; Stage: PlayerDetails; ItemType: Button; Next: PlayerDetails2
+//
+//PlayerDetails2
+Position:260,130; Size:.7,.7; Image&Name: next; Stage: PlayerDetails; ItemType: Button; Next: Main
+//Player Details End
 //
 //
 //

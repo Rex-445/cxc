@@ -10,6 +10,7 @@ from story_manager import *
 from button import Button
 from prop import *
 from char_AI import *
+from data_manager import *
 
 #Characters
 from Characters import *
@@ -294,7 +295,6 @@ class Camera():
 #Camera
 cam = Camera(pos=(0,0))
 
-
 class Background():
     def __init__(self, pos=(0,0), size=1, img="bg/sp/ship.png", zpos=1, cameraType=1):
         self.pos = list(pos)
@@ -349,6 +349,8 @@ class SplashImage():
 class GameWindow(pyglet.window.Window):
     #Initilize the Game Window
     def __init__(self, *args, **kwargs):
+        global icon
+        
         super().__init__(*args, **kwargs)
 ##        glClearColor(0, 0, 0, 1)
         self.set_location(400,100)
@@ -372,10 +374,23 @@ class GameWindow(pyglet.window.Window):
 
         #Menu_UI
         self.targetInput = None
+        self.caps = False
         self.canClick = True
+        #Player Data
+        #Player Boarder
+        self.playerBoarder = pyglet.sprite.Sprite(pyglet.image.load("UI/PlayerData/Boarder/" + boarder + ".png"), x=-40, y=415 + big_screen[1], batch=self.menu_batch)
+        #Player Name
+        self.playerNameText = pyglet.text.Label(player_name, x=100, y=480 + big_screen[1], multiline=True, width=400, batch=self.menu_batch)
+        #Player Icon
+        icons = ["Ryu_head", "Ken_head", "Cammy_head", "Chun-Li_head", "Fei'Long_head", "Bison_head", "Anti-Ryu_head", "Akuma_head"]
+        if icon > len(icons) -1:
+            icon = len(icons)-1
+        self.playerIcon = pyglet.sprite.Sprite(pyglet.image.load("UI/PlayerData/Icons/"+icons[icon]+".png"), x=20, y=460 + big_screen[1], batch=self.menu_batch)
+        self.playerIcon.scale_x = .5
+        self.playerIcon.scale_y = .5
 
         #Stall for a defualtt game
-        self.maxStallTime = 10
+        self.maxStallTime = 30
         self.stallTime = self.maxStallTime
         self.face = pyglet.sprite.Sprite(pyglet.image.load("UI/Ryu_Head.png"), x=0, y=0, batch=self.menu_batch)
         self.face.scale_x = 4
@@ -458,6 +473,11 @@ class GameWindow(pyglet.window.Window):
 
         self.back_ground = []
         self.AIs = 1
+
+        #Check for PlayerData
+        if player_name == "Defualt":
+            menuManager.stage = "PlayerDetails"
+            menuManager.update_menu_objects()
 
 
     def Start(self):
@@ -1199,7 +1219,7 @@ class GameWindow(pyglet.window.Window):
   
 
     #Inputs_Begin
-    def on_mouse_press(self, x, y, button, modifiers):
+    def on_mouse_press(self, x, y, button, modifiers):        
         if menuManager.mode == "Menu":
             self.stallTime = self.maxStallTime
             if button == mouse.LEFT:
@@ -1209,14 +1229,28 @@ class GameWindow(pyglet.window.Window):
                         if mb.type == "InputField":
                             self.targetInput = mb.get_click(x, y)
                             hasClicked = True
-                        
-                        if self.targetInput != None:
-                            self.targetInput.active = False
-                            self.targetInput = None
 
                         #In Case of Buttons
                         if mb.type == "Button":
-                            menuManager.Change(mb, x, y)
+                            canChange = True
+                            
+                            if mb.next == "Main":
+                                if self.targetInput != None:
+                                    if self.targetInput.user_text != "":
+                                        player_name = self.targetInput.user_text
+                                        SavePlayerData(player_name)
+                                        self.playerNameText.text = player_name
+                                        self.targetInput = None
+                                else:
+                                    canChange = False
+                                
+                            #If targetInput is not null reset it
+                            if self.targetInput != None:
+                                self.targetInput.active = False
+                                self.targetInput = None
+
+                            if canChange:
+                                menuManager.Change(mb, x, y)
                             if mb.name == "story_mode":
                                 self.Make_Story_Characters()
 
@@ -1256,12 +1290,24 @@ class GameWindow(pyglet.window.Window):
         keys = {'113': "Q", '119': 'W', '101': 'E', '114': 'R', '116': 'T', '121': 'Y', '117': 'U', '105': 'I', '111': 'O', '112': 'P', '97': 'A', '115': 'S', '100': 'D',
                 '102': 'F', '103': 'G', '104': 'H', '106': 'J', '107': 'K', '108': 'L', '122': 'Z', '120': 'X', '99': 'C', '118': 'V', '98': 'B', '110': 'N', '109': 'M',
                 '32': ' ', '304': '^'}
+##        print(symbol)
         if self.targetInput != None:
+            #Caps Lock
+            if symbol == 65509:
+                self.caps = not self.caps
+            #Backspace
+            if symbol == 65288:
+                text = self.targetInput.user_text[:-1]
+                self.targetInput.user_text = text
+                self.targetInput.text.text = self.targetInput.user_text
             try:
                 if self.targetInput.user_text == "" or self.targetInput.user_text[-1:] == " ":
                     self.targetInput.user_text += keys[str(symbol)]
                 else:
-                    self.targetInput.user_text += keys[str(symbol)].lower()
+                    if self.caps == False:
+                        self.targetInput.user_text += keys[str(symbol)].lower()
+                    else:
+                        self.targetInput.user_text += keys[str(symbol)]
                 self.targetInput.text.text = self.targetInput.user_text
             except:
                 print("Can't use that value")
