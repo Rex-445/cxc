@@ -120,6 +120,7 @@ class Champion():
 
         #Combos
         self.vrest = 0
+        self.combo = []
         self.maxVrest = 15
         self.hitCombo = 0
         self.comboEnd = False
@@ -307,7 +308,7 @@ class Champion():
 
 
         #Align On Axes
-        data = pickle.load(open("data/" + str(name) + ".txt", "rb"))
+        data = pickle.load(open("data/Characters/" + str(name) + ".txt", "rb"))
         self.alignX = data[0]
         self.alignY = data[1]
         self.hitBoxX = data[2]
@@ -520,6 +521,9 @@ class Champion():
         dodge_states = [2, 2.5, 3, 3.5]
         self.force = [3,0]
         if self.isControlled:
+            #Checking Combos
+            self.combo.append(type)
+            
             if type == "SP":
                 self.breaker_input += "S"
                 if self.key_combo != "":
@@ -577,6 +581,9 @@ class Champion():
         dodge_states = [10, 10.5, 11, 11.5]
         self.force = [3,0]
         if self.isControlled:
+            #Checking Combos
+            self.combo.append(type)
+            
             if type == "SK":
                 self.breaker_input += "S"
                 if self.key_combo != "":
@@ -693,6 +700,7 @@ class Champion():
         self.frameSpeed = self.defualtSpeed
         self.vel[1] = 0
         self.vel[0] = force[0]
+        self.combo = 0
         self.cameraShake = 0
         self.opponent.maxHitCD = 1
         self.isGrabbing = False
@@ -868,21 +876,13 @@ class Champion():
             self.targetGrabbed.pos[1] = y
 
     def Update_Hitbox(self):
-        attacking_actions = [-1, -1.2, -1.5, 2, 2.5, 3, 3.5, 9, 10, 10.5, 11, 11.5, 12, 17, 17.3, 17.5, 12.5, 12.8, 13, 13.5, 14, 14.5, 18, 18.5, 19, 19.1, 19.2, 19.5, 21, 22, 30, 30.2, 30.3, 30.4, 30.5, 30.5, 31.5]
         if self.direction == 1:
-            if self.action in attacking_actions:
                 self.hitBox[0] = self.bdy.x + self.hitBoxX[self.targetFrame[int(self.frame)]] 
                 self.hitBox[1] = self.bdy.y + self.hitBoxY[self.targetFrame[int(self.frame)]]
                 
         if self.direction == -1:
-            if self.action in attacking_actions:
                 self.hitBox[0] = self.bdy.x - self.hitBoxX[self.targetFrame[int(self.frame)]] + self.hitBoxOffsetX
                 self.hitBox[1] = self.bdy.y + self.hitBoxY[self.targetFrame[int(self.frame)]] - self.hitBoxOffsetY
-
-        #Reset
-        if self.action not in attacking_actions:
-            self.hitBox[0] = 1000
-            self.hitBox[1] = 1000
 
             
     def Update_Graphics(self):

@@ -212,7 +212,7 @@ class GameWindow(pyglet.window.Window):
         self.object.__init__self__(row=self.object.alignment[1][0], col=self.object.alignment[1][1], width=self.object.alignment[1][2], height=self.object.alignment[1][3], img=self.object.defualt[1])
         self.object.__init__self__(row=2, col=4, width=150, height=150, img=self.object.defualt[2])
 ##        self.object.__init__self__(row=10, col=10, width=150, height=150, img="sprites/"+self.object.name+"/"+self.object.name+"_glow.png")
-        data = pickle.load(open("data/" + self.object.name + ".txt", "rb"))
+        data = pickle.load(open("data/Characters/" + self.object.name + ".txt", "rb"))
         self.object.alignX = data[0]
         self.object.alignY = data[1]
         self.object.hitBoxX = data[2]

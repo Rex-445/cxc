@@ -181,24 +181,6 @@ class Akuma(Champion):
         self.direction = 1
         self.dvx = 0
         self.dvy = 0
-
-
-        #Align On Axes
-        data = pickle.load(open("data/" + str(name) + ".txt", "rb"))
-        self.alignX = data[0]
-        self.alignY = data[1]
-        self.hitBoxX = data[2]
-        self.hitBoxY = data[3]
-        self.velX = []
-        self.velY = []
-        for vel in range(180):
-            self.velX.append(0)
-            self.velY.append(0)
-            self.alignX.append(0)
-            self.alignY.append(0)
-            self.hitBoxX.append(0)
-            self.hitBoxY.append(0)
-        
         
     def _jump(self):
         if not self.jump:

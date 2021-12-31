@@ -161,37 +161,6 @@ class Ryu(Champion):
         self.catchFrames = [23, 23.3, 23.3, 23.3, 23.6, 23.6, 23.6, 23.8, 23.8, 23.8, 23.8, 23.8]
         #Throw (Getting Caught)
         self.frames39 = [40, 39, 38, 22]
-
-        #character frames
-        self.cell = []
-        self.flip = []
-        self.targetCell = self.cell
-        self.targetFrame = self.frames1
-        self.row = 0
-        self.col = 0
-        self.sounds = ["sounds/020.wav"]
-        self.sndTimer = 1
-        self.frame = 0
-        self.direction = 1
-        self.dvx = 0
-        self.dvy = 0
-
-
-        #Align On Axes
-        data = pickle.load(open("data/" + str(name) + ".txt", "rb"))
-        self.alignX = data[0]
-        self.alignY = data[1]
-        self.hitBoxX = data[2]
-        self.hitBoxY = data[3]
-        self.velX = []
-        self.velY = []
-        for vel in range(180):
-            self.velX.append(0)
-            self.velY.append(0)
-            self.alignX.append(0)
-            self.alignY.append(0)
-            self.hitBoxX.append(0)
-            self.hitBoxY.append(0)
         
     def _jump(self):
         if not self.jump:

@@ -1,4 +1,4 @@
-import sys, pickle, pyglet, random, time
+import sys, pyglet, random, time
 from ball import *
 from champion import Champion
 
