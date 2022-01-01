@@ -255,8 +255,9 @@ class Cammy(Champion):
     def _skill(self, skill):
         self.mixup = ""
         #Dragon Ball
-        if skill == "Leg Suplex":
+        if skill == "Leg Suplex" and self.stamina > 40:
             if self.state == "Grounded" or self.state == "Crouch":
+                self.stamina -= 40
                 self.state = "Skill"
                 self.action = 19
                 self.frame = 0
@@ -291,15 +292,17 @@ class Cammy(Champion):
                                           speed=.2, img="sprites/special.png", row=4, col=2))
                 
         #Spin Knuckle
-        if skill == "Spin Knuckle":                
+        if skill == "Spin Knuckle" and self.stamina > 50:                
             if self.state == "Grounded" or self.state == "Crouch":
+                self.stamina -= 50
                 self.state = "Skill"      
                 self.frame = 0
                 self.action = 12
                 
         #Shun' Po
-        if skill == "Shun' Po":                
+        if skill == "Shun' Po" and self.stamina > 40:                
             if self.state == "Grounded" or self.state == "Crouch":
+                self.stamina -= 40
                 self.state = "Skill"      
                 self.frame = 0
                 self.action = 30

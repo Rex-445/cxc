@@ -257,15 +257,15 @@ class Camera():
         for obj in objs:
             #Special Effects
             for b in obj.balls:
-                if objs[0].superSkill == False and objs[1].superSkill == False:
-                    #Boundries
-                    if b.pos[0] + b.sprite.width < 0:
-                        b.alive = False
-                    if b.pos[0] + b.sprite.width > self.stageWidth + 100:
-                        b.alive = False
+                #Boundries
+                if b.pos[0] + b.sprite.width < 0:
+                    b.alive = False
+                if b.pos[0] + b.sprite.width > self.stageWidth + 100:
+                    b.alive = False
 
-                    #Updates
-                    if b.alive:
+                #Updates
+                if b.alive:
+                    if objs[0].superSkill == False and objs[1].superSkill == False:
                         b.update()
                         b.sprite.y += big_screen[1]
                         b.sprite.x -= self.pos[0]
@@ -273,13 +273,13 @@ class Camera():
                         b.hit_sprite.x -= self.pos[0]
                         b.hit_sprite.y -= self.pos[1]
 ##                        b.hit_sprite.draw()
-                        b.sprite.draw()
+                    b.sprite.draw()
+                else:
+                    if b.direction == -1:
+                        vfx_list.append(Broken(pos=(b.pos[0] - 70, b.sprite.y + 5), speed=.3, direction=b.direction, img=b.broken_sheet, row=4, col=1))
                     else:
-                        if b.direction == -1:
-                            vfx_list.append(Broken(pos=(b.pos[0] - 70, b.sprite.y + 5), speed=.3, direction=b.direction, img=b.broken_sheet, row=4, col=1))
-                        else:
-                            vfx_list.append(Broken(pos=(b.pos[0] + 20, b.sprite.y + 5), speed=.3, direction=b.direction, img=b.broken_sheet, row=4, col=1))
-                        obj.balls.remove(b)
+                        vfx_list.append(Broken(pos=(b.pos[0] + 20, b.sprite.y + 5), speed=.3, direction=b.direction, img=b.broken_sheet, row=4, col=1))
+                    obj.balls.remove(b)
             
         #Body and Hitbox Visuals
         for obj in objs:
@@ -1603,7 +1603,8 @@ class GameWindow(pyglet.window.Window):
             #Update Players particles
             for v in self.champions:
                 for vx in v.balls:
-                    cam.update_vfx(vx.vfx)
+                    if self.player1.pause == False and self.player2.pause == False:
+                        cam.update_vfx(vx.vfx)
             cam.update_vfx(vfx_list)
             self.Update_Hit_Combos()
             
@@ -1697,8 +1698,9 @@ class GameWindow(pyglet.window.Window):
             if self.AIs > 0:
                 if self.AI.champion.isControlled:
                     self.AI.Control()
-                    
-            cam.Encapsulate(self.player2, self.player1)
+
+            if self.player1.pause == False and self.player2.pause == False:
+                cam.Encapsulate(self.player2, self.player1)
 
             #Stop frames for players when either one enters a super state
             if self.winner == "None":
@@ -1716,7 +1718,7 @@ class GameWindow(pyglet.window.Window):
             #Start Game
             if self.startGame:
                 self.targetOpacity = 0
-                self.startTimer += .2
+                self.startTimer += .8
                 self.roundCall.text = "Round " + str(self.round)
                 if self.startTimer > self.startTime:
                     self.roundCall.text = "Round " + str(self.round)+ "\n  Fight"

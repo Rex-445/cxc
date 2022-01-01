@@ -1,5 +1,5 @@
-PlayerName: CES
+PlayerName: Sdad
 Level: 1
-Icon: M.Bison_head
+Icon: Anti-Ryu_head
 Favourite Champion: None
 Boarder: Boarder2

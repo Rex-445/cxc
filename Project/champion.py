@@ -543,54 +543,58 @@ class Champion():
                 if type == "WP":
                     self.breaker_input = ""
                     self.damage = 5
-                    if self.state == "Grounded" and self.action != 2 and self.action != 13.5:
+                    if self.state == "Grounded" and self.action != 2 and self.action != 13.5:                        
+                        #Check For Stamina
+                        if self.stamina > 15 and self.Break_Stamina() == False:
+                            self.stamina -= 15
+                            self.staminaSpeed = 0
+                        else:
+                            return
+                        
                         self.Play("Audio/wiff.wav")
                         self.action = 2
                         self.typeHit = "Damage"
-                        self.frame = 0                  
+                        self.frame = 0
+                    if self.state == "Crouch" and self.action != 2.5 and self.action != 14.5:                    
                         #Check For Stamina
-                        if self.stamina > 15:
+                        if self.stamina > 15 and self.Break_Stamina() == False:
                             self.stamina -= 15
                             self.staminaSpeed = 0
                         else:
                             return
-                    if self.state == "Crouch" and self.action != 2.5 and self.action != 14.5:
+                        
                         self.frame = 0
                         self.action = 2.5
-                        self.typeHit = "Damage"              
-                        #Check For Stamina
-                        if self.stamina > 15:
-                            self.stamina -= 15
-                            self.staminaSpeed = 0
-                        else:
-                            return
+                        self.typeHit = "Damage"       
                 
                 #Medium Punch
                 if type == "MP":
                     self.damage = 15
                     self.breaker_input = ""
-                    if self.state == "Grounded" and self.action != 3 and self.action != 13.5:
+                    if self.state == "Grounded" and self.action != 3 and self.action != 13.5:                    
+                        #Check For Stamina
+                        if self.stamina > 15 and self.Break_Stamina() == False:
+                            self.stamina -= 15
+                            self.staminaSpeed = 0
+                        else:
+                            return
+                        
                         self.Play("Audio/wiff.wav")
                         self.action = 3
                         self.frame = 0
-                        self.typeHit = "Damage"              
+                        self.typeHit = "Damage"    
+                    if self.state == "Crouch" and self.action != 3.5 and self.action != 14.5:                    
                         #Check For Stamina
-                        if self.stamina > 15:
+                        if self.stamina > 15 and self.Break_Stamina() == False:
                             self.stamina -= 15
                             self.staminaSpeed = 0
                         else:
                             return
-                    if self.state == "Crouch" and self.action != 3.5 and self.action != 14.5:
+                        
                         self.Play("Audio/wiff.wav")
                         self.action = 3.5
                         self.frame = 0
-                        self.typeHit = "Damage"              
-                        #Check For Stamina
-                        if self.stamina > 15:
-                            self.stamina -= 15
-                            self.staminaSpeed = 0
-                        else:
-                            return
+                        self.typeHit = "Damage"   
                 #Grabbing
                 if type == "IP":
                     grabs = [21, 22]
@@ -625,17 +629,25 @@ class Champion():
                 if type == "WK":
                     self.damage = 5
                     self.breaker_input = ""
-                    if self.state == "Grounded" and self.action != 10 and self.action != 13.5:
-                        self.action = 10
-                        self.typeHit = "Damage"
-                        self.frame = 0              
+                    if self.state == "Grounded" and self.action != 10 and self.action != 13.5:                    
                         #Check For Stamina
-                        if self.stamina > 15:
+                        if self.stamina > 15 and self.Break_Stamina() == False:
                             self.stamina -= 15
                             self.staminaSpeed = 0
                         else:
                             return
-                    if self.state == "Crouch" and self.action != 10.5 and self.action != 14.5:
+                        
+                        self.action = 10
+                        self.typeHit = "Damage"
+                        self.frame = 0       
+                    if self.state == "Crouch" and self.action != 10.5 and self.action != 14.5:                    
+                        #Check For Stamina
+                        if self.stamina > 15 and self.Break_Stamina() == False:
+                            self.stamina -= 15
+                            self.staminaSpeed = 0
+                        else:
+                            return
+                        
                         self.frame = 0
                         self.action = 10.5
                         self.typeHit = "Damage"              
@@ -646,30 +658,32 @@ class Champion():
                         else:
                             return
                 
-
+                #Medium Kick
                 if type == "MK":
                     self.damage = 15
                     self.breaker_input = ""
-                    if self.state == "Grounded" and self.action != 11 and self.action != 13.5:
+                    if self.state == "Grounded" and self.action != 11 and self.action != 13.5:                    
+                        #Check For Stamina
+                        if self.stamina > 15 and self.Break_Stamina() == False:
+                            self.stamina -= 15
+                            self.staminaSpeed = 0
+                        else:
+                            return
+                        
                         self.action = 11
                         self.typeHit = "Damage"
-                        self.frame = 0              
+                        self.frame = 0
+                    if self.state == "Crouch" and self.action != 11.5 and self.action != 14.5:                    
                         #Check For Stamina
-                        if self.stamina > 15:
+                        if self.stamina > 15 and self.Break_Stamina() == False:
                             self.stamina -= 15
                             self.staminaSpeed = 0
                         else:
                             return
-                    if self.state == "Crouch" and self.action != 11.5 and self.action != 14.5:
+                        
                         self.action = 11.5
                         self.frame = 0
-                        self.typeHit = "Damage"              
-                        #Check For Stamina
-                        if self.stamina > 15:
-                            self.stamina -= 15
-                            self.staminaSpeed = 0
-                        else:
-                            return
+                        self.typeHit = "Damage"
                         
     
     def Update_Alignment(self):
@@ -764,6 +778,10 @@ class Champion():
                 self.breaker_input = ""
                 self.invincible = True
                 self.action = 6.7
+                self.stamina = 0
+                self.staminaSpeed = -20
+                self.opponent.stamina = 0
+                self.opponent.staminaSpeed = -20
                 self.superSkill = True              
                 self.vfx.append(Ball(pos=(self.pos[0] - 20, self.pos[1] - 20), name="VFX", loop=False, destroy=3, width=225, height=225,
                                       speed=.2, img="sprites/special.png", row=4, col=2))
@@ -908,6 +926,13 @@ class Champion():
                     self.skill_combo_time = 0
                     self.key_combo = ""
                     break
+                
+    def Break_Stamina(self):
+        key = self.key_combo            
+        for n in range(len(self.skill)):
+            if key == self.skill[n][0]:
+                return True
+        return False
 
     def Update_Grab(self):
         if self.isGrabbing and self.targetGrabbed is not None:
@@ -1093,6 +1118,7 @@ class Champion():
                         self.frame = 0
                         
                 self.vel[1] -= self.gravity
+                self.gravity += .01
                 self.state = "Airborne"
                 if self.action == -1:
                     if self.frame > len(self.frames10) - 1: 
@@ -1113,8 +1139,7 @@ class Champion():
                             self.action = 12.8
                         if self.name == "M.Bison":
                             self.action = 5
-                            self.gravity = self.maxGravity
-                            
+                            self.gravity = self.maxGravity                            
                     else:
                         self.action = 5
                         self.gravity = self.maxGravity
@@ -1135,6 +1160,7 @@ class Champion():
             self.velocity = 0
             self.freezeInAir = False
             self.jump = False
+            self.gravity += .01
             self.vel[1] -= self.gravity
             self.state = "Airborne"
             self.targetFrame = self.frames16
@@ -1158,6 +1184,7 @@ class Champion():
                     self.frame = 0
                     self.bounce = 1
                     self.invincible = False
+                    self.gravity = self.maxGravity    
                     if self.alive:
                         self.isControlled = True
                     self.action = 7.9

@@ -180,7 +180,8 @@ class Ryu(Champion):
         self.mixup = ""
         #Dragon Ball
         if self.state == "Grounded" or self.state == "Crouch":
-            if skill == "Dragon Ball":
+            if skill == "Dragon Ball" and self.stamina > 20:
+                self.stamina -= 20
                 self.state = "Skill"
                 self.Play("Audio/Champs/Ryu/dragon_ball.wav")
                 self.frame = 0
@@ -214,7 +215,8 @@ class Ryu(Champion):
 
         #Dragon Punch
         if self.state == "Grounded" or self.state == "Crouch":
-            if skill == "Dragon Punch":
+            if skill == "Dragon Punch" and self.stamina > 40:
+                self.stamina -= 40
                 self.state = "Skill"
                 self.PlayVoice("Audio/Champs/Ryu/dragon_punch.wav")
                 self.frame = 0
@@ -229,7 +231,8 @@ class Ryu(Champion):
                 self.frame = 0
                 self.action = 17.3
                 
-            if self.state == "Grounded" or self.state == "Crouch":
+            if self.state == "Grounded" or self.state == "Crouch" and self.stamina > 40:
+                self.stamina -= 40
                 self.state = "Skill"
                 self.Play("Audio/jump.wav")
                 self.frame = 0

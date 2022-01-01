@@ -197,15 +197,18 @@ class Ken(Champion):
 
     def _skill(self, skill):
         self.mixup = ""
+        #Dragon Born
         if self.targetVariation == self.variation_names[0]:
             #Dragon Ball
             if self.state == "Grounded" or self.state == "Crouch":
-                if skill == "Dragon Ball":
+                if skill == "Dragon Ball" and self.stamina > 40:
+                    self.stamina -= 40
                     self.state = "Skill"
                     self.PlayVoice("Audio/Champs/Ken/dragon_ball.wav")
                     self.frame = 0
                     self.action = 8
                     
+        #Dragon Flame         
         if self.targetVariation == self.variation_names[1]:
             self.typeHit = "Burn"
             if self.opponent.burning:
@@ -229,7 +232,8 @@ class Ken(Champion):
 
         #Dragon Punch
         if self.state == "Grounded" or self.state == "Crouch":
-            if skill == "Dragon Punch":
+            if skill == "Dragon Punch" and self.stamina > 40:
+                self.stamina -= 40
                 self.state = "Skill"
                 choice = random.choice(["dragon_punchA", "dragon_punchB"])
                 self.PlayVoice("Audio/Champs/Ken/"+choice+".wav")
