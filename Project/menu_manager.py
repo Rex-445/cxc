@@ -1,4 +1,4 @@
-import pyglet
+import pyglet, math
 
 
 
@@ -21,6 +21,7 @@ class MenuManager():
         self.oneShot = False
         self.enemy = None
         self.player = None
+        self.selectedItem = None
 
     def LoadBGFile(self, file):
         f = open(file,'r')
@@ -62,8 +63,75 @@ class MenuManager():
                 b.sprite.x = b.pos[0]
                 b.sprite.y = b.pos[1]
 
+        for d in self.draw_list:
+            if d.first:
+                self.selectedItem = d
+                if self.selectedItem != None:
+                    self.selectedItem.IsHover(self.selectedItem.pos[0] + 5, self.selectedItem.pos[1] + 5)
+
         if self.stage == "GAME":
             self.mode = "Game"
+
+    def Move_Cursor(self, direction):
+        if self.selectedItem != None:
+            item = self.selectedItem
+            item.IsHover(-1000,-1000)
+            #Moving the cursor left
+            if direction == "Left":
+                value = math.inf
+                for d in self.draw_list:
+                    if d.pos[0] < self.selectedItem.pos[0]:
+                        if d.pos[1] < self.selectedItem.pos[1] + (self.selectedItem.sprite.height * 2) \
+                            and d.pos[1] > self.selectedItem.pos[1] - (self.selectedItem.sprite.height * 2):
+                            if d.type == "Button":
+                                dist = math.sqrt(math.pow(self.selectedItem.pos[0] - d.pos[0], 2))
+                                if dist < value:
+                                    value = dist
+                                    item = d
+                    
+            #Moving the cursor Right
+            if direction == "Right":
+                value = math.inf
+                for d in self.draw_list:
+                    if d.pos[0] > self.selectedItem.pos[0]:
+                        if d.pos[1] < self.selectedItem.pos[1] + (self.selectedItem.sprite.height * 2) \
+                            and d.pos[1] > self.selectedItem.pos[1] - (self.selectedItem.sprite.height * 2):
+                            if d.type == "Button":
+                                dist = math.sqrt(math.pow(self.selectedItem.pos[0] - d.pos[0], 2))
+                                if dist < value:
+                                    value = dist
+                                    item = d
+                    
+            #Moving the cursor Right
+            if direction == "Up":
+                value = math.inf
+                for d in self.draw_list:
+                    if d.pos[0] > self.selectedItem.pos[0]:
+                        if d.pos[0] < self.selectedItem.pos[0] + (self.selectedItem.sprite.width * 2) \
+                            and d.pos[0] > self.selectedItem.pos[0] - (self.selectedItem.sprite.width * 2):
+                            if d.type == "Button":
+                                dist = math.sqrt(math.pow(self.selectedItem.pos[1] - d.pos[1], 2))
+                                if dist < value:
+                                    value = dist
+                                    item = d
+                    
+            #Moving the cursor Right
+            if direction == "Down":
+                value = math.inf
+                for d in self.draw_list:
+                    if d.pos[0] > self.selectedItem.pos[0]:
+                        if d.pos[0] < self.selectedItem.pos[0] + (self.selectedItem.sprite.width * 2) \
+                            and d.pos[0] > self.selectedItem.pos[0] - (self.selectedItem.sprite.width * 2):
+                            if d.type == "Button":
+                                dist = math.sqrt(math.pow(self.selectedItem.pos[1] - d.pos[1], 2))
+                                if dist < value:
+                                    value = dist
+                                    item = d
+            print(item.name)
+            self.update_menu_objects()
+            item.IsHover(item.pos[0] + 1,item.pos[1] + 1)
+            self.selectedItem = item
+            
 
     def full_screen(self, big_screen=[0,0]):
         for m in self.menu_objects:
@@ -141,7 +209,7 @@ class MenuManager():
                         data = f.split('\n')
                         des.sprite.text = data[0].split(':')[1]
                     
-    def Change(self, mb, x, y):
+    def Change(self, mb):
         stageID = ["Champion_Select", "Stage_Select", "Variation_Select"]
         
         if mb.name == "Back":
@@ -182,8 +250,9 @@ class MenuManager():
             
 
 class MenuObject():
-    def __init__(self, pos=(0,0), size=(1,1), name="MenuObject", stage="Main", type="Button", next="None", color=[0,0,0]):
+    def __init__(self, pos=(0,0), size=(1,1), name="MenuObject", stage="Main", type="Button", next="None", color=[0,0,0], first=False):
         self.pos = list(pos)
+        self.first = first
         self.type = type
         self.name = name
         self.size = list(size)
@@ -225,7 +294,7 @@ class MenuObject():
         #Button Actions
         self.next = next
 
-    def get_click(self, x, y):
+    def get_click(self):
         if self.type == "InputField":
             self.active = not self.active
             if self.active:
@@ -248,7 +317,7 @@ class MenuObject():
         else:
             if self.type == "Button":
                 self.sprite.opacity = self.defualt
-                self.sprite.color = [255,255,255]
+                self.sprite.color = [200,200,200]
         
     def on_click(self, x, y):        
         if self.type == "Text":
@@ -282,12 +351,16 @@ for m in range(len(menu)):
         stage = menu[m].split(';')[3].split(':')[1][1:]
         type = menu[m].split(';')[4].split(':')[1][1:]
         next = menu[m].split(';')[5].split(':')[1][1:]
+        try:
+            first = menu[m].split(';')[7].split(':')[1][1:]
+        except:
+            first = False
         color = (0,0,0)
         if type == "Text":
             oldColor = list(menu[m].split(';')[6].split(':')[1].split(','))
             color = [int(oldColor[0]), int(oldColor[1]), int(oldColor[2])]
         
-        menuManager.menu_objects.append(MenuObject(pos=pos, size=size, name=name, stage=stage, type=type, next=next, color=color))
+        menuManager.menu_objects.append(MenuObject(pos=pos, size=size, name=name, stage=stage, type=type, next=next, color=color, first=first))
 
 menuManager.update_menu_objects()
 #Check

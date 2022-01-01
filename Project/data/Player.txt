@@ -1,5 +1,5 @@
-PlayerName: Sdad
+PlayerName: CESRex
 Level: 1
-Icon: Anti-Ryu_head
+Icon: M.Bison_head
 Favourite Champion: None
 Boarder: Boarder2

@@ -75,7 +75,7 @@ class Champion():
 
     def Save(self):
         data = [self.alignX, self.alignY, self.hitBoxX, self.hitBoxY]
-        pickle.dump(data, open("data/" + self.name + ".txt", "wb"))
+        pickle.dump(data, open("data/Characters/" + self.name + ".txt", "wb"))
 
     def ResetFrame(self):
         self.hitBoxX[int(self.frame)] = 60

@@ -103,7 +103,7 @@ SPECIAL MOVES
 
 
 ===Bison===
-1. Psycho Crucher (5R)
+1. Psycho Crucher (5RB)
  Input method: < + > + P
 
 2. Head Stomp (10RB)

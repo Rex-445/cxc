@@ -250,7 +250,8 @@ class Ken(Champion):
 ##                self.frame = 0
 ##                self.action = 17.3
                 
-            if self.state == "Grounded" or self.state == "Crouch":
+            if self.state == "Grounded" or self.state == "Crouch" and self.stamina > 40:
+                self.stamina -= 40
                 self.state = "Skill"
                 self.invincible = True
                 self.Play("Audio/jump.wav")

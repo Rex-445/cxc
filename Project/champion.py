@@ -558,7 +558,7 @@ class Champion():
                     if self.state == "Crouch" and self.action != 2.5 and self.action != 14.5:                    
                         #Check For Stamina
                         if self.stamina > 15 and self.Break_Stamina() == False:
-                            self.stamina -= 15
+                            self.stamina -= 10
                             self.staminaSpeed = 0
                         else:
                             return
@@ -574,7 +574,7 @@ class Champion():
                     if self.state == "Grounded" and self.action != 3 and self.action != 13.5:                    
                         #Check For Stamina
                         if self.stamina > 15 and self.Break_Stamina() == False:
-                            self.stamina -= 15
+                            self.stamina -= 10
                             self.staminaSpeed = 0
                         else:
                             return
@@ -632,7 +632,7 @@ class Champion():
                     if self.state == "Grounded" and self.action != 10 and self.action != 13.5:                    
                         #Check For Stamina
                         if self.stamina > 15 and self.Break_Stamina() == False:
-                            self.stamina -= 15
+                            self.stamina -= 10
                             self.staminaSpeed = 0
                         else:
                             return
@@ -643,7 +643,7 @@ class Champion():
                     if self.state == "Crouch" and self.action != 10.5 and self.action != 14.5:                    
                         #Check For Stamina
                         if self.stamina > 15 and self.Break_Stamina() == False:
-                            self.stamina -= 15
+                            self.stamina -= 10
                             self.staminaSpeed = 0
                         else:
                             return
@@ -917,6 +917,7 @@ class Champion():
 ##                    self.opponent.hitCD = -1
                     self.hitPunch =  ""
                     self.hitKick = ""
+                    self.staminaSpeed = 0
                     if self.state == "Airborne" or self.state == "Skill":
                         self.mixup = self.skill[n][0]
                         self.skill_combo_time = 0
