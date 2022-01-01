@@ -120,7 +120,6 @@ class Champion():
 
         #Combos
         self.vrest = 0
-        self.combo = []
         self.maxVrest = 15
         self.hitCombo = 0
         self.comboEnd = False
@@ -164,6 +163,7 @@ class Champion():
         self.maxRageBar = 600
         self.rageBar = 200
         self.stamina = 100
+        self.staminaSpeed = 0
         self.damage = 15
         self.bonusDamage = 0
         self.addTime = 0
@@ -520,10 +520,7 @@ class Champion():
     def Attack_Punch(self, type):
         dodge_states = [2, 2.5, 3, 3.5]
         self.force = [3,0]
-        if self.isControlled:
-            #Checking Combos
-            self.combo.append(type)
-            
+        if self.isControlled:            
             if type == "SP":
                 self.breaker_input += "S"
                 if self.key_combo != "":
@@ -541,7 +538,7 @@ class Champion():
                         self.mixup += "A"
                 
             if self.action not in dodge_states and self.isGrabbing == False:
-                self.hitPunch = type
+                self.hitPunch = type   
                 #Weak Punch
                 if type == "WP":
                     self.breaker_input = ""
@@ -550,11 +547,23 @@ class Champion():
                         self.Play("Audio/wiff.wav")
                         self.action = 2
                         self.typeHit = "Damage"
-                        self.frame = 0
+                        self.frame = 0                  
+                        #Check For Stamina
+                        if self.stamina > 15:
+                            self.stamina -= 15
+                            self.staminaSpeed = 0
+                        else:
+                            return
                     if self.state == "Crouch" and self.action != 2.5 and self.action != 14.5:
                         self.frame = 0
                         self.action = 2.5
-                        self.typeHit = "Damage"
+                        self.typeHit = "Damage"              
+                        #Check For Stamina
+                        if self.stamina > 15:
+                            self.stamina -= 15
+                            self.staminaSpeed = 0
+                        else:
+                            return
                 
                 #Medium Punch
                 if type == "MP":
@@ -564,12 +573,24 @@ class Champion():
                         self.Play("Audio/wiff.wav")
                         self.action = 3
                         self.frame = 0
-                        self.typeHit = "Damage"
+                        self.typeHit = "Damage"              
+                        #Check For Stamina
+                        if self.stamina > 15:
+                            self.stamina -= 15
+                            self.staminaSpeed = 0
+                        else:
+                            return
                     if self.state == "Crouch" and self.action != 3.5 and self.action != 14.5:
                         self.Play("Audio/wiff.wav")
                         self.action = 3.5
                         self.frame = 0
-                        self.typeHit = "Damage"
+                        self.typeHit = "Damage"              
+                        #Check For Stamina
+                        if self.stamina > 15:
+                            self.stamina -= 15
+                            self.staminaSpeed = 0
+                        else:
+                            return
                 #Grabbing
                 if type == "IP":
                     grabs = [21, 22]
@@ -580,10 +601,7 @@ class Champion():
     def Attack_Kick(self, type):
         dodge_states = [10, 10.5, 11, 11.5]
         self.force = [3,0]
-        if self.isControlled:
-            #Checking Combos
-            self.combo.append(type)
-            
+        if self.isControlled:            
             if type == "SK":
                 self.breaker_input += "S"
                 if self.key_combo != "":
@@ -600,7 +618,7 @@ class Champion():
                     #Add Mixup
                     if self.state == "Airborne":
                         self.mixup += "K"
-                
+                        
             if self.action not in dodge_states and self.isGrabbing == False:
                 self.hitKick = type
                 #Weak Kick
@@ -610,11 +628,23 @@ class Champion():
                     if self.state == "Grounded" and self.action != 10 and self.action != 13.5:
                         self.action = 10
                         self.typeHit = "Damage"
-                        self.frame = 0
+                        self.frame = 0              
+                        #Check For Stamina
+                        if self.stamina > 15:
+                            self.stamina -= 15
+                            self.staminaSpeed = 0
+                        else:
+                            return
                     if self.state == "Crouch" and self.action != 10.5 and self.action != 14.5:
                         self.frame = 0
                         self.action = 10.5
-                        self.typeHit = "Damage"
+                        self.typeHit = "Damage"              
+                        #Check For Stamina
+                        if self.stamina > 15:
+                            self.stamina -= 15
+                            self.staminaSpeed = 0
+                        else:
+                            return
                 
 
                 if type == "MK":
@@ -623,11 +653,23 @@ class Champion():
                     if self.state == "Grounded" and self.action != 11 and self.action != 13.5:
                         self.action = 11
                         self.typeHit = "Damage"
-                        self.frame = 0
+                        self.frame = 0              
+                        #Check For Stamina
+                        if self.stamina > 15:
+                            self.stamina -= 15
+                            self.staminaSpeed = 0
+                        else:
+                            return
                     if self.state == "Crouch" and self.action != 11.5 and self.action != 14.5:
                         self.action = 11.5
                         self.frame = 0
-                        self.typeHit = "Damage"
+                        self.typeHit = "Damage"              
+                        #Check For Stamina
+                        if self.stamina > 15:
+                            self.stamina -= 15
+                            self.staminaSpeed = 0
+                        else:
+                            return
                         
     
     def Update_Alignment(self):
@@ -729,12 +771,14 @@ class Champion():
                 self.state = "Hit"
                 self.vel[0] = 0
                 self.opponent.action = 6
+        #Taking Damage
         else:
             if self.blinkDuration <= 0:
                 self.blinkDuration = 5
             if self.action != 6.7:
                 #Add Rage Points
                 if self.hitCombo > 1:
+                    self.stamina += 3
                     self.opponent.rageBar += 5
                     
                 if self.hitCombo > 5:
@@ -977,13 +1021,26 @@ class Champion():
         self.bonusDamage -= .08
         self.addTime -= .1
 
+        #Stamina
+        if self.stamina < 100:
+            self.staminaSpeed += .01
+            self.stamina += self.staminaSpeed
+        #Limit
+        if self.stamina > 100:
+            self.stamina = 100
+
         if self.alive and self.health < self.maxHealth:
             self.health += .02
+        if self.health > self.maxHealth:
+            self.health = self.maxHealth
+
+        #Damage over time
         if self.burning:
             self.health -= .1
             if self.health < 1:
                 self.burning = False
-        
+
+        #Attack Rest
         if self.vrest > 0:
             self.vrest -= .2
             if self.vrest <= 0:
@@ -992,11 +1049,13 @@ class Champion():
                 self.hitCombo = 0
                 self.breaker_input = ""
 
+        #Hit Combo
         if self.hitCombo < 2:
             self.bloodLine -= (self.bloodLine - self.health) / 10
             if self.bloodLine < 0:
                 self.bloodLine = 0
-        
+                
+        #Healing
         if self.healLength > 0 and self.alive:
             self.health += self.healLength / 20
             self.healLength -= 1 

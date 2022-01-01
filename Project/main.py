@@ -376,21 +376,9 @@ class GameWindow(pyglet.window.Window):
         self.targetInput = None
         self.caps = False
         self.canClick = True
-        #Player Data
-        #Player Boarder
-        self.playerBoarder = pyglet.sprite.Sprite(pyglet.image.load("UI/PlayerData/Boarder/" + boarder + ".png"), x=-40, y=415 + big_screen[1], batch=self.menu_batch)
-        #Player Name
-        self.playerNameText = pyglet.text.Label(player_name, x=100, y=480 + big_screen[1], multiline=True, width=400, batch=self.menu_batch)
-        #Player Icon
-        icons = ["Ryu_head", "Ken_head", "Cammy_head", "Chun-Li_head", "Fei'Long_head", "Bison_head", "Anti-Ryu_head", "Akuma_head"]
-        if icon > len(icons) -1:
-            icon = len(icons)-1
-        self.playerIcon = pyglet.sprite.Sprite(pyglet.image.load("UI/PlayerData/Icons/"+icons[icon]+".png"), x=20, y=460 + big_screen[1], batch=self.menu_batch)
-        self.playerIcon.scale_x = .5
-        self.playerIcon.scale_y = .5
 
         #Stall for a defualtt game
-        self.maxStallTime = 30
+        self.maxStallTime = 10
         self.stallTime = self.maxStallTime
         self.face = pyglet.sprite.Sprite(pyglet.image.load("UI/Ryu_Head.png"), x=0, y=0, batch=self.menu_batch)
         self.face.scale_x = 4
@@ -475,13 +463,22 @@ class GameWindow(pyglet.window.Window):
         self.AIs = 1
 
         #Check for PlayerData
+        self.MakePlayerData()
         if player_name == "Defualt":
             menuManager.stage = "PlayerDetails"
             menuManager.update_menu_objects()
 
 
-    def Start(self):
-        pass
+    def MakePlayerData(self):
+        #Player Data
+        #Player Name
+        #Player Boarder
+        self.playerBoarder = pyglet.sprite.Sprite(pyglet.image.load("UI/PlayerData/Boarder/" + boarder + ".png"), x=-40, y=415 + big_screen[1])
+        self.playerNameText = pyglet.text.Label(player_name, x=100, y=480 + big_screen[1], multiline=True, width=400, batch=self.menu_batch)
+        #Player Icon
+        self.playerIcon = pyglet.sprite.Sprite(pyglet.image.load("UI/PlayerData/Icons/"+icon+".png"), x=20, y=460 + big_screen[1], batch=self.menu_batch)
+        self.playerIcon.scale_x = .5
+        self.playerIcon.scale_y = .5
 
     #Play Sounds
     def PlaySound(self, file):
@@ -524,9 +521,11 @@ class GameWindow(pyglet.window.Window):
         self.champs = Craft_Champions(player1, player2)
 
         #Update Variations
+        randChoice = 0
         if self.round == 1:
+            randChoice = random.randint(0, len(Craft_Champions(player1, player2)[1].variation_names)-1)
             self.AssignVariations(self.champs[0], menuManager.variationSelectID)
-            self.AssignVariations(self.champs[1], random.randint(0, len(Craft_Champions(player1, player2)[1].variation_names)-1))
+            self.AssignVariations(self.champs[1], randChoice)
         
         self.player1 = self.champs[0]
         self.player1.finishImage.scale_x = 1
@@ -552,7 +551,7 @@ class GameWindow(pyglet.window.Window):
         if AI > 1:
             self.AI2 = Human_AI(champion=self.player1, opponent=self.player2)
 
-        self.Make_Player_UI()
+        self.Make_Player_UI(randChoice)
 
     def AssignVariations(self, p, choice):
         p.targetVariation = p.variation_names[choice]
@@ -568,7 +567,7 @@ class GameWindow(pyglet.window.Window):
                     menuManager.enemy = Char_AntiRyu()
         menuManager.update_all_menu_objects()
 
-    def Make_Player_UI(self):
+    def Make_Player_UI(self, variation):
         self.normalHealthbar = pyglet.sprite.Sprite(pyglet.image.load("sprites/healthBar.png"))
         self.healHealhBar = pyglet.sprite.Sprite(pyglet.image.load_animation("sprites/healthBar_heal.gif"))
         self.glowHealthBar = pyglet.sprite.Sprite(pyglet.image.load_animation("sprites/healthBar_glow.gif"))
@@ -579,10 +578,18 @@ class GameWindow(pyglet.window.Window):
         self.healthBar1 = pyglet.sprite.Sprite(pyglet.image.load("sprites/healthBar.png"), x=68.5, y=332 + big_screen[1])
         self.healthBar1.scale_x = 1.7
         self.healthBar1.scale_y = 1.7
+        #Variation Icon
+        self.icon1 = pyglet.sprite.Sprite(pyglet.image.load("sprites/healthBar.png"), x=250, y=355 + big_screen[1])
+        self.icon1.image = self.player1.variation_images[menuManager.variationSelectID].image
+        self.icon1.scale_x = .6
+        self.icon1.scale_y = .6
         #BloodLine
         self.bloodLine1 = pyglet.sprite.Sprite(pyglet.image.load("sprites/bloodLine.png"), x=68, y=332 + big_screen[1])
         self.bloodLine1.scale_x = 1.7
         self.bloodLine1.scale_y = 1.7
+        #Stamina
+        self.staminaBar1 = pyglet.sprite.Sprite(pyglet.image.load("sprites/staminaBar.png"), x=73, y=300 + big_screen[1])
+        self.staminaBoarder1 = pyglet.sprite.Sprite(pyglet.image.load("sprites/staminaBoarder.png"), x=73, y=300 + big_screen[1])
         #RageBar
         self.rageBarOutline1 = pyglet.sprite.Sprite(pyglet.image.load("sprites/rage_bar_outline.png"), x=70, y=313 + big_screen[1])
         self.rageBarOutline1.scale_x = 1.3
@@ -616,6 +623,14 @@ class GameWindow(pyglet.window.Window):
         self.bloodLine2 = pyglet.sprite.Sprite(pyglet.image.load("sprites/bloodLine.png"), x=self.width-280, y=332 + big_screen[1])
         self.bloodLine2.scale_x = 1.7
         self.bloodLine2.scale_y = 1.7
+        #Variation Icon
+        self.icon2 = pyglet.sprite.Sprite(pyglet.image.load("sprites/healthBar.png"), x=self.width-280, y=355 + big_screen[1])
+        self.icon2.image = self.player2.variation_images[variation].image
+        self.icon2.scale_x = .6
+        self.icon2.scale_y = .6
+        #Stamina
+        self.staminaBar2 = pyglet.sprite.Sprite(pyglet.image.load("sprites/staminaBar.png"), x=self.width - 280, y=300 + big_screen[1])
+        self.staminaBoarder2 = pyglet.sprite.Sprite(pyglet.image.load("sprites/staminaBoarder.png"), x=self.width - 280, y=300 + big_screen[1])
         #RageBar
         self.rageBarOutline2 = pyglet.sprite.Sprite(pyglet.image.load("sprites/rage_bar_outline.png"), x=self.width - 235, y=313 + big_screen[1])
         self.rageBarOutline2.scale_x = 1.3
@@ -643,26 +658,45 @@ class GameWindow(pyglet.window.Window):
         self.bloodLine1.scale_x = self.player1.bloodLine / self.player1.maxHealth * 1.7
         self.rageBarFill1.scale_x = self.player1.rageBar / self.player1.maxRageBar * 1.3
         self.healthBar1.scale_x = self.player1.health / self.player1.maxHealth * 1.7
+        self.staminaBar1.scale_x = self.player1.stamina * .015
+        self.staminaBoarder1.scale_x = 1.5
+        
         if self.player1.health <= 0:
-            self.healthBar1.scale_x = .01            
+            self.healthBar1.scale_x = 0          
             
             
         #Player 2
         self.bloodLine2.scale_x = self.player2.bloodLine / self.player2.maxHealth * 1.7
         self.rageBarFill2.scale_x = -self.player2.rageBar / self.player2.maxRageBar * 1.3
         self.healthBar2.scale_x = self.player2.health / self.player2.maxHealth * 1.7
+        self.staminaBar2.scale_x = self.player2.stamina * .015
+        self.staminaBoarder2.scale_x = self.player2.stamina * .015
         if self.player2.health <= 0:
-            self.healthBar2.scale_x = .03
+            self.healthBar2.scale_x = 0
             
-            
+        #Player Stats
         self.playerStats2.draw()
         self.playerStats1.draw()
+        #Player Ragebar
         self.rageBarOutline1.draw()
         self.rageBarOutline2.draw()
+        #Player Stamina Bar
+        self.staminaBar1.draw()
+        self.staminaBoarder1.draw()
+        self.staminaBar2.draw()
+        self.staminaBoarder2.draw()
+        #RageBar Detail
+        self.rageBarOutlineRulers1.draw()
+        self.rageBarOutlineRulers2.draw()
+        #Player Bloodline
         self.bloodLine1.draw()
-        self.healthBar1.draw()
         self.bloodLine2.draw()
+        #Player HealthBar
+        self.healthBar1.draw()
         self.healthBar2.draw()
+        #Player Variation Icon
+        self.icon2.draw()
+        self.icon1.draw()
 
     def Load_Audio_Length(self, audio):
         playerIntro = pyglet.media.Player()
@@ -1219,7 +1253,7 @@ class GameWindow(pyglet.window.Window):
   
 
     #Inputs_Begin
-    def on_mouse_press(self, x, y, button, modifiers):        
+    def on_mouse_press(self, x, y, button, modifiers):   
         if menuManager.mode == "Menu":
             self.stallTime = self.maxStallTime
             if button == mouse.LEFT:
@@ -1233,16 +1267,27 @@ class GameWindow(pyglet.window.Window):
                         #In Case of Buttons
                         if mb.type == "Button":
                             canChange = True
-                            
-                            if mb.next == "Main":
+
+                            #Login Screen
+                            if menuManager.stage == "PlayerDetails":
                                 if self.targetInput != None:
                                     if self.targetInput.user_text != "":
                                         player_name = self.targetInput.user_text
-                                        SavePlayerData(player_name)
                                         self.playerNameText.text = player_name
+                                        SavePlayerData(name=player_name)
                                         self.targetInput = None
+                                        menuManager.update_menu_objects()
+                                    else:
+                                        canChange = False
                                 else:
                                     canChange = False
+                                    
+                            #Selecting an Icon
+                            if menuManager.stage == "PlayerIcon":
+                                SavePlayerData(name=self.playerNameText.text, icon=mb.name)
+                                self.playerIcon = pyglet.sprite.Sprite(pyglet.image.load("UI/PlayerData/Icons/"+mb.name+".png"), x=20, y=460 + big_screen[1], batch=self.menu_batch)
+                                self.playerIcon.scale_x = .5
+                                self.playerIcon.scale_y = .5
                                 
                             #If targetInput is not null reset it
                             if self.targetInput != None:
@@ -1256,7 +1301,6 @@ class GameWindow(pyglet.window.Window):
 
                             if mb.name == "exit_game":
                                 self.PlayMusic("BGM/BGM.mp3")
-                                self.Start()
                                 
                             if mb.name == "Begin":
                                 self.stallTime = self.maxStallTime
@@ -1447,6 +1491,7 @@ class GameWindow(pyglet.window.Window):
         self.clear()
             
         if menuManager.mode == "Menu":
+            self.playerBoarder.draw()
             self.menu_batch.draw()
             cam.Update_UI(menuManager.draw_list)
             
@@ -1533,8 +1578,6 @@ class GameWindow(pyglet.window.Window):
             self.main_batch.draw()
             self.UpdateGlows()
             
-            self.rageBarOutlineRulers1.draw()
-            self.rageBarOutlineRulers2.draw()
             self.bgTransition.draw()
 
             #Check to see if either players have won
@@ -1607,7 +1650,10 @@ class GameWindow(pyglet.window.Window):
             pass
 
         if menuManager.mode == "Menu":
-            self.stallTime -= 1 * dt
+            if menuManager.stage == "Battle":
+                self.stallTime -= 5 * dt
+            else:
+                self.stallTime -= .01 * dt
                 
             if self.stallTime <= 0:
                 if menuManager.stage == "Finish":

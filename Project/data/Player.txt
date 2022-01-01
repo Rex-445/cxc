@@ -1,5 +1,5 @@
-PlayerName: Defualt
+PlayerName: CES
 Level: 1
-Icon: 0
+Icon: M.Bison_head
 Favourite Champion: None
-Boarder: Boarder1
+Boarder: Boarder2

@@ -24,10 +24,19 @@ Position:500,177; Size:13,1; Image&Name: Text_BG_Size; Stage: Stage_Select; Item
 //
 //Player Details
 Position:160,170; Size:1.2,1; Image&Name: Enter Your Name; Stage: PlayerDetails; ItemType: InputField; Next: PlayerName; Color:255,255,0
-Position:260,130; Size:.7,.7; Image&Name: next; Stage: PlayerDetails; ItemType: Button; Next: PlayerDetails2
+Position:260,130; Size:.7,.7; Image&Name: next; Stage: PlayerDetails; ItemType: Button; Next: PlayerIcon
 //
 //PlayerDetails2
-Position:260,130; Size:.7,.7; Image&Name: next; Stage: PlayerDetails; ItemType: Button; Next: Main
+Position:120,20; Size:.7,.7; Image&Name: Container; Stage: PlayerIcon; ItemType: Image; Next: None
+Position:145,180; Size:.7,.7; Image&Name: Ryu_head; Stage: PlayerIcon; ItemType: Button; Next: Main
+Position:245,180; Size:.7,.7; Image&Name: Anti-Ryu_head; Stage: PlayerIcon; ItemType: Button; Next: Main
+Position:345,180; Size:.7,.7; Image&Name: Cammy_head; Stage: PlayerIcon; ItemType: Button; Next: Main
+Position:445,180; Size:.7,.7; Image&Name: M.Bison_head; Stage: PlayerIcon; ItemType: Button; Next: Main
+Position:145,60; Size:.7,.7; Image&Name: Chun'Li_head; Stage: PlayerIcon; ItemType: Button; Next: Main
+Position:245,60; Size:.7,.7; Image&Name: Fei'Long_head; Stage: PlayerIcon; ItemType: Button; Next: Main
+Position:345,60; Size:.7,.7; Image&Name: Akuma_head; Stage: PlayerIcon; ItemType: Button; Next: Main
+Position:445,60; Size:.7,.7; Image&Name: Ken_head; Stage: PlayerIcon; ItemType: Button; Next: Main
+Position:70,345; Size:30,1; Image&Name: Select An Icon; Stage: PlayerIcon; ItemType: Text; Next: None; Color:255,255,0
 //Player Details End
 //
 //

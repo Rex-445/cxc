@@ -71,7 +71,7 @@ class Ball:
         if self.vfx_sheet != None:
             self.vfxTime -= .15
             if self.vfxTime <= 0:
-                self.vfxTime = .2
+                self.vfxTime = 1
                 pos = [random.randint(-20, 20), random.randint(-20,20)]
                 self.vfx.append(Ball(pos=(self.pos[0] + pos[0] + 20, self.pos[1] + 20 + pos[1]), destroy=1, width=27, height=28, length=3, speed=.4, direction=self.direction,
                                     img=self.vfx_sheet, row=4, loop=False, velX=random.randint(-2,2)*self.direction, velY=random.randint(-1,1), col=1))

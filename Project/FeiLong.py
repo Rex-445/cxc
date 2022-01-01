@@ -108,7 +108,7 @@ class FeiLong(Champion):
         #Jump (Kick)
         self.frames10B = [78, 79, 79, 78]
         #Land
-        self.frames11 = [21, 21, 21]
+        self.frames11 = [43, 43, 43]
         #Getting Hit
         self.frames12 = [80, 80, 80, 81, 81]
         #Getting Hit
