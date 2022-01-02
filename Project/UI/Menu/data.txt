@@ -26,7 +26,7 @@ Position:80,144; Size:1,.8; Image&Name: UI_Potrait; Stage: Champion_Select; Item
 //This is the Character Selection Stage
 Position:230,105; Size:.7,.7; Image&Name: prev; Stage: Champion_Select; ItemType: Button; Next: Champion_Select
 Position:585,105; Size:.7,.7; Image&Name: next; Stage: Champion_Select; ItemType: Button; Next: Champion_Select
-Position:550,20; Size:1,1; Image&Name: Stage_Next; Stage: Champion_Select; ItemType: Button; Next: Variation_Select
+Position:550,20; Size:1,1; Image&Name: Stage_Next; Stage: Champion_Select; ItemType: Button; Next: Variation_Select; Color: 0,0,0; First: True
 //Champions Names End
 //
 //

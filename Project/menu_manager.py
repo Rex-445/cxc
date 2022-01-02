@@ -65,14 +65,17 @@ class MenuManager():
 
         for d in self.draw_list:
             if d.first:
+                print(d.name)
                 self.selectedItem = d
-                if self.selectedItem != None:
+                d.IsHover(-1000,-1000)
+                if d.name != self.selectedItem.name:
                     self.selectedItem.IsHover(self.selectedItem.pos[0] + 5, self.selectedItem.pos[1] + 5)
 
         if self.stage == "GAME":
             self.mode = "Game"
 
     def Move_Cursor(self, direction):
+            
         if self.selectedItem != None:
             item = self.selectedItem
             item.IsHover(-1000,-1000)
@@ -106,7 +109,7 @@ class MenuManager():
             if direction == "Up":
                 value = math.inf
                 for d in self.draw_list:
-                    if d.pos[0] > self.selectedItem.pos[0]:
+                    if d.pos[1] > self.selectedItem.pos[1]:
                         if d.pos[0] < self.selectedItem.pos[0] + (self.selectedItem.sprite.width * 2) \
                             and d.pos[0] > self.selectedItem.pos[0] - (self.selectedItem.sprite.width * 2):
                             if d.type == "Button":
@@ -119,7 +122,7 @@ class MenuManager():
             if direction == "Down":
                 value = math.inf
                 for d in self.draw_list:
-                    if d.pos[0] > self.selectedItem.pos[0]:
+                    if d.pos[1] < self.selectedItem.pos[1]:
                         if d.pos[0] < self.selectedItem.pos[0] + (self.selectedItem.sprite.width * 2) \
                             and d.pos[0] > self.selectedItem.pos[0] - (self.selectedItem.sprite.width * 2):
                             if d.type == "Button":

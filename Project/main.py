@@ -1309,6 +1309,7 @@ class GameWindow(pyglet.window.Window):
                 menuManager.enemy = random.choice(menuManager.charSelect)
             
             menuManager.player = menuManager.charSelect[menuManager.charSelectID]
+            menuManager.update_menu_objects()
             menuManager.update_all_menu_objects()
         
     #Inputs_Begin
@@ -1392,22 +1393,22 @@ class GameWindow(pyglet.window.Window):
                 if menuManager.mode == "Game":
                     #Weak Kick
                     if event.button == 14:
-                        self.player1.Attack_Kick("WK")
+                        self.player2.Attack_Kick("WK")
                     #Medium Kick
                     if event.button == 13:
-                        self.player1.Attack_Kick("MK")
+                        self.player2.Attack_Kick("MK")
                     #Medium Punch
                     if event.button == 12:
-                        self.player1.Attack_Punch("MP")
+                        self.player2.Attack_Punch("MP")
                     #Weak Punch
                     if event.button == 15:
-                        self.player1.Attack_Punch("WP")
+                        self.player2.Attack_Punch("WP")
                     #Grab
                     if event.button == 10:
-                        self.player1.Attack_Punch("IP")
+                        self.player2.Attack_Punch("IP")
                     #Super
                     if event.button == 11:
-                        self.player1.Attack_Punch("SP")
+                        self.player2.Attack_Punch("SP")
                         
                 if menuManager.mode == "Menu":
                     #Moving the Menu Buttons
@@ -1461,18 +1462,18 @@ class GameWindow(pyglet.window.Window):
                         #Axis Left
                         if event.value < -value:
                             if self.joyStickLeft == False:
-                                self.player1.KeyDown("Left")
+                                self.player2.KeyDown("Left")
                                 self.joyStickLeft = True
-                            self.player1.KeyUp("Right")
+                            self.player2.KeyUp("Right")
                         #Axis Right
                         if event.value > value:
                             if self.joyStickLeft == False:
-                                self.player1.KeyDown("Right")
+                                self.player2.KeyDown("Right")
                                 self.joyStickLeft = True
-                            self.player1.KeyUp("Left")
+                            self.player2.KeyUp("Left")
                         if event.value < value and event.value > -value:
-                            self.player1.KeyUp("Left")
-                            self.player1.KeyUp("Right")
+                            self.player2.KeyUp("Left")
+                            self.player2.KeyUp("Right")
                             self.joyStickLeft = False
                             self.joyStickRight = False
                         
@@ -1480,17 +1481,17 @@ class GameWindow(pyglet.window.Window):
                     if event.axis == 1:
                         if event.value < -value:
                             if self.joyStickUp == False:
-                                self.player1.KeyDown("Up")
+                                self.player2.KeyDown("Up")
                                 self.joyStickUp = True
-                            self.player1.KeyUp("Down")
+                            self.player2.KeyUp("Down")
                         if event.value > value:
                             if self.joyStickDown == False:
-                                self.player1.KeyDown("Down")
+                                self.player2.KeyDown("Down")
                                 self.joyStickDown = True
-                            self.player1.KeyUp("Up")
+                            self.player2.KeyUp("Up")
                         if event.value < value and event.value > -value:
-                            self.player1.KeyUp("Up")
-                            self.player1.KeyUp("Down")
+                            self.player2.KeyUp("Up")
+                            self.player2.KeyUp("Down")
                             self.joyStickUp = False
                             self.joyStickDown = False
                         

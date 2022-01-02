@@ -205,7 +205,7 @@ class GameWindow(pyglet.window.Window):
 
         self.AddButtons()
 
-    def LoadFile(self, name="Chun'Li"):
+    def LoadFile(self, name="Ryu"):
         #Sprite Object
         self.object = Champion(name=name, x=245, y=190)
         self.object.__init__self__(row=self.object.alignment[0][0], col=self.object.alignment[0][1], width=self.object.alignment[0][2], height=self.object.alignment[0][3], img=self.object.defualt[0])
