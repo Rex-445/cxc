@@ -90,6 +90,10 @@ class Ken(Champion):
         self.frames5 = [41, 45, 41]
         #Close Medium Punch
         self.frames6 = [46, 47, 46]
+        #Left Uppercut
+        self.frames6B = [49, 50, 51, 51, 50, 50, 50]
+        #Right Uppercut
+        self.frames6C = [46, 47, 46]
         #Crouch
         self.frames7 = [10]
         #Crouch Weak Punch

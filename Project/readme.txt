@@ -17,6 +17,9 @@ UPDATES
 7. New Feature 'Variation'
 8. Interactions between champions have been enhanced: characters now have quotes unique to other champions
 
+#For Nerds
+9. It is now possible to create your own backgrounds
+
 
 ---------------
     INPUTS

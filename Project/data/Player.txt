@@ -1,4 +1,4 @@
-PlayerName: CESRex
+PlayerName: Defualt
 Level: 1
 Icon: M.Bison_head
 Favourite Champion: None
