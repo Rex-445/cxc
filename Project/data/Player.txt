@@ -1,5 +1,5 @@
-PlayerName: Defualt
+PlayerName: CESRex
 Level: 1
-Icon: M.Bison_head
+Icon: Akuma_head
 Favourite Champion: None
 Boarder: Boarder2

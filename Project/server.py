@@ -2,7 +2,7 @@ import socket
 from _thread import *
 import sys
 import pickle
-from player import *
+from champion import Champion
 
 server = "192.168.142.39"
 port = 5555
@@ -14,10 +14,10 @@ try:
 except socket.error as e:
     str(e)
 
-s.listen(2)
+s.listen()
 print("Waiting for a connection, Server Started")
 
-players = [Player(0,0,50,50, (255,0,0)), Player(100,100,50,50, (0,0,255))]
+players = [None, None]
 
 currentPlayer = 0
 def threaded_client(conn, player):

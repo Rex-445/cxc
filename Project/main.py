@@ -13,6 +13,7 @@ from button import Button
 from prop import *
 from char_AI import *
 from data_manager import *
+from network import Network
 
 #Characters
 from Characters import *
@@ -297,6 +298,9 @@ class Camera():
    
 #Camera
 cam = Camera(pos=(0,0))
+n = Network()
+p = n.getP()
+p2 = n.send(p)
 
 class Background():
     def __init__(self, pos=(0,0), size=1, img="bg/sp/ship.png", zpos=1, cameraType=1):
@@ -1353,7 +1357,7 @@ class GameWindow(pyglet.window.Window):
                 for mb in menuManager.draw_list:
                     if mb.on_click(x,y) and hasClicked == False:
                         if mb.type == "InputField":
-                            self.targetInput = mb.get_click(x, y)
+                            self.targetInput = mb.get_click()
                             hasClicked = True
 
                         #In Case of Buttons
