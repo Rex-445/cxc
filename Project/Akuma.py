@@ -29,8 +29,8 @@ class Akuma(Champion):
         #Biography
         self.main_description = ["Akuma is a dark warrior that posses 'Anti-Glory', he thirsts for power and more of Glory. He ",
                             "continues to reign havoc on acient temples rooting out their secrets of unseakable power, he",
-                            "tried convincing Ryu to join him but Ryu refused, this angered him thus leading to their bloody",
-                            "battle, Ryu was victrious but Akuma escaped, hiding in the shadows, waiting for revenge."]
+                            "tried convincing Ryu to join him but Ryu refused, this angered him thus leading to their bloody battle",
+                            ", Ryu was victrious but Akuma escaped, hiding in the shadows, waiting for revenge."]
         self.description = ""
 
         for d in self.main_description:
@@ -181,6 +181,8 @@ class Akuma(Champion):
         self.direction = 1
         self.dvx = 0
         self.dvy = 0
+
+        self.rageBar = 600
         
     def _jump(self):
         if not self.jump:
@@ -739,6 +741,8 @@ class Akuma(Champion):
                             self.targetGrabbed.frameSpeed = 0
                             self.kickloop = 50
                             self.force = [0,0]
+                            self.opponent.pos[1] = self.ground
+                            self.opponent.state = "Grounded"
                             time.sleep(1)
 
                     

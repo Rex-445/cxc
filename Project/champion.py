@@ -779,9 +779,9 @@ class Champion():
                 self.invincible = True
                 self.action = 6.7
                 self.stamina = 0
-                self.staminaSpeed = -20
+                self.staminaSpeed = -1
                 self.opponent.stamina = 0
-                self.opponent.staminaSpeed = -20
+                self.opponent.staminaSpeed = -1
                 self.superSkill = True              
                 self.vfx.append(Ball(pos=(self.pos[0] - 20, self.pos[1] - 20), name="VFX", loop=False, destroy=3, width=225, height=225,
                                       speed=.2, img="sprites/special.png", row=4, col=2))
@@ -1054,6 +1054,8 @@ class Champion():
         #Limit
         if self.stamina > 100:
             self.stamina = 100
+        if self.stamina < 0 :
+            self.stamina = 0
 
         if self.alive and self.health < self.maxHealth:
             self.health += .02
@@ -1135,12 +1137,18 @@ class Champion():
                     self.jumpHeight = 15
                     
                     #Actions Unique to champions
+                    #Chun'Li
+                    if self.name == "Chun'Li":
+                        self.action = -100
+                        print("YES")
+                    #Cammy and Fei'Long
                     if self.action == 12.5:
                         if self.name == "Cammy" or self.name == "Fei'Long":
                             self.action = 12.8
                         if self.name == "M.Bison":
                             self.action = 5
-                            self.gravity = self.maxGravity                            
+                            self.gravity = self.maxGravity
+                            
                     else:
                         self.action = 5
                         self.gravity = self.maxGravity
@@ -1201,7 +1209,6 @@ class Champion():
             self.inAfterImage = False
             self.voiceFrame = 0
             self.opponent.maxHitCD = 1
-            self.Mixup_Combo()
             self.opponent.frameSpeed = self.defualtSpeed
                     
     def Update(self):

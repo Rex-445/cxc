@@ -29,8 +29,8 @@ class Ken(Champion):
                                       self.variation_names[1] + ": Ken's attacks burn enemies dealing damage over time. Enemies ablaze take more damage from his abilities, he also can no longer throw projectiles"]
 
         #Biography
-        self.main_description = ["Ken, being the only one that mastered the dragon fire, he sets out, going with the flow, taking",
-                            "on challenges, and looking cool doing it. Fate has brought him to Ryu, now they both fight for",
+        self.main_description = ["Ken, being the only one that mastered the dragon fire, he sets out, going with the flow, taking ",
+                            "on challenges, and looking cool doing it. Fate has brought him to Ryu, now they both fight for ",
                             "justice, against the evil. What journey awaits them"]
         self.description = ""
 

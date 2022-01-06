@@ -34,7 +34,7 @@ class ChunLi(Champion):
         self.variation_description = [self.variation_names[0] + ": Chun'Li has strong kicks that deals bonus damage to an enemy depending on how much stamina she has she can also parry weak and medium attacks"]
 
         #Biography
-        self.main_description = ["Chun'Li is a Chinese Warrior that aided the Dragon Temple during the world war. Her selfless",
+        self.main_description = ["Chun'Li is a Chinese Warrior that aided the Dragon Temple during the world war. Her selfless ",
                                  "act granted her a place in the temple as one of the 'Guardians of Dragon'"]
         self.description = ""
         for d in self.main_description:
@@ -254,11 +254,13 @@ class ChunLi(Champion):
         #Cannon Drill 
         if skill == "Kikokun":                
             if self.state == "Grounded" or self.state == "Crouch" or self.state == "BlockHit":
-                self.state = "Skill"
-                self.force = [4,0]
-                self.frame = 0
-                self.action = 17
-                self.PlayVoice("Audio/Champs/Chun'Li/Skill/kikokun.wav")
+                if self.stamina > 30:
+                    self.stamina -= 30
+                    self.state = "Skill"
+                    self.force = [4,0]
+                    self.frame = 0
+                    self.action = 17
+                    self.PlayVoice("Audio/Champs/Chun'Li/Skill/kikokun.wav")
                 
         #Flurry Kicks
         if skill == "Flurry Kicks":                
@@ -649,7 +651,7 @@ class ChunLi(Champion):
                     self.superSkill = False
                     self.frame = 0
                     self.action = 30.2
-                    self.jumpHeight = 3
+                    self.jumpHeight = 4.5
                     self._height()
                     self.force = [3, 5]
                     self.Play("Audio/jump.wav")
@@ -662,6 +664,7 @@ class ChunLi(Champion):
                     self.action = 30.2
                     self.freezeInAir = True
                     self.invincible = False
+                    self.frameSpeed = .5
                     
             #Bird Kick (Loop)
             if self.action == 30.2:
@@ -704,6 +707,7 @@ class ChunLi(Champion):
                     self.force = [3, 0]
                     self.voiceFrame = 0
                     self.opponent.maxHitCD = 1
+                    self.frameSpeed = self.defualtSpeed
                 
                     
                     

@@ -1,5 +1,5 @@
 PlayerName: CESRex
 Level: 1
-Icon: Akuma_head
+Icon: Ryu_head
 Favourite Champion: None
 Boarder: Boarder2

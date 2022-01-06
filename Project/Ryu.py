@@ -31,8 +31,8 @@ class Ryu(Champion):
                                       self.variation_names[1] + ": Ryu gives in to Tat'sui no' hado and becomes Anti-Ryu, gaining new abilities"]
         
         #Biography
-        self.main_description = ["Ryu, the chosen warrior to protect the temple of Vaal, previously guarded by his Master, Eigen",
-                            "gave the responsibility to him. Invaders have tried to take over the temple but none have been ",
+        self.main_description = ["Ryu is the chosen warrior to protect the temple of Vaal, which was previously guarded by his Master, Eigen.",
+                            " Eigen gave this responsibility to him. Invaders have tried to take over the temple but none have been ",
                             "able to withstand his Dragon Borne abilities. He remains vigilant, keeping it safe along side ",
                             "his closest companion, Ken."]
         self.description = ""

@@ -4,7 +4,7 @@ class StoryManager():
     def __init__(self):
         #Casual Variables
         self.timer = 0
-        self.phase = 22
+        self.phase = 0
         self.ACT = 1
         self.scene = 1
         self.champions = []

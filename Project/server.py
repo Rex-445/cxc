@@ -4,7 +4,7 @@ import sys
 import pickle
 from champion import Champion
 
-server = "192.168.142.39"
+server = "192.168.96.39"
 port = 5555
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

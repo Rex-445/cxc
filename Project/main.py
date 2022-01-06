@@ -294,7 +294,17 @@ class Camera():
 ##            obj.hit_sprite.draw()
 ##            obj.body_sprite.draw()
             self.update_vfx(obj.vfx)
+            
 
+class OnlineChampion():
+    def __init__(self, pos=(0,0)):
+        self.pos = list(pos)
+        self.sprite = None
+        self.frame = 0
+        self.targetFrame = None
+        self.health = 100
+        self.rageBar = 100
+        self.stamina = 100
    
 #Camera
 cam = Camera(pos=(0,0))
@@ -483,6 +493,7 @@ class GameWindow(pyglet.window.Window):
         self.MakePlayerData()
         if player_name == "Defualt":
             menuManager.stage = "PlayerDetails"
+            menuManager.update_menu_objects()
         self.UpdateJoystickVisuals()
 
 
@@ -490,6 +501,12 @@ class GameWindow(pyglet.window.Window):
         #Player Data
         #Player Name
         #Player Boarder
+##        media = pyglet.media.load("Gameplay.mp4")
+##        player = pyglet.media.Player()
+##        player.queue(media)
+##        player._create_texture()
+##        player.play()
+        
         self.playerBoarder = pyglet.sprite.Sprite(pyglet.image.load("UI/PlayerData/Boarder/" + boarder + ".png"), x=10, y=415 + big_screen[1])
         self.playerNameText = pyglet.text.Label(player_name, x=150, y=480 + big_screen[1], multiline=True, width=400, batch=self.menu_batch)
         #Player Icon
@@ -513,8 +530,8 @@ class GameWindow(pyglet.window.Window):
 
     #Play BG Music
     def PlayMusic(self, file):
+        self.player.delete()
         media = pyglet.media.load(file)
-        self.source = pyglet.media.StreamingSource()
 
         self.player.queue(media)
         self.player.next_source()
@@ -884,8 +901,6 @@ class GameWindow(pyglet.window.Window):
             
     #Reset Game
     def Check_Win(self):
-        global choice
-        global choice2
         #Check if either players looses        
         if self.player1.alive == False or self.player2.alive == False:
             self.player1.isControlled = False
@@ -898,7 +913,6 @@ class GameWindow(pyglet.window.Window):
         #Player 2 Looses
         if self.player2.alive == False and self.player1.alive == True:
             self.timer += .2
-            self.frame_rate = 1/20
             self.winner = self.player1.name
             self.player2.finishImage = self.player2.loseImage
             if self.timer > self.deathTimer:

@@ -372,7 +372,7 @@ class MenuObject():
             self.user_text = ""
             
         if self.type == "Text":
-            self.sprite = pyglet.text.Label(self.name, x=self.pos[0], y=self.pos[1], multiline=True, width=600)
+            self.sprite = pyglet.text.Label(self.name, x=self.pos[0], y=self.pos[1], multiline=True, width=610)
             self.sprite.color = (self.color[0], self.color[1], self.color[2], self.color[3])
             self.sprite.font_size = self.size[0]
 
