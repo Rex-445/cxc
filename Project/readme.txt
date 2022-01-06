@@ -156,6 +156,19 @@ SPECIAL MOVES
 7. Air Kicks (0RB)
  Input method: (Shun' Po.....) + MK
 
+===Mixups===
+1. On Duty (Requirement: Variation B)
+ Skills: Shun'Po + Leg Grab
+
+2. Drilled In
+ Skills: Shun'Po + Cannon Drill
+
+3. Back Breaker
+ Skills: Cannon Drill + Leg Grab
+
+4. The End
+ Skills: Cannon Drill + Air Kicks + Leg Grab
+
 
 
 ===Akuma===
@@ -217,6 +230,9 @@ SPECIAL MOVES
 
 3. Flurry Kicks (AIRBORNE) (200RB)
  Input method: > + < + K + K
+
+===Mixups===
+1. 
 
 
 =========================================================================

@@ -102,7 +102,7 @@ class Bison(Champion):
         #Medium Punch
         self.frames4 = [13, 14, 15, 16, 17, 18, 19, 20]
         #Crouch
-        self.frames7 = [28]
+        self.frames7 = [27]
         #Crouch Weak Punch
         self.frames8 = [31, 32, 31]
         #Crouch Medium Punch

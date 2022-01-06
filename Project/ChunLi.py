@@ -202,7 +202,7 @@ class ChunLi(Champion):
         self.frames38 = [76, 76, 77, 77, 78, 78]
         self.catchFrames = [23, 23.3, 23.8, 23.8, 23.8, 23.8]
         #Throw (Getting Caught)
-        self.frames39 = [128, 127, 126, 132]
+        self.frames39 = [81, 82, 92, 85]
 
         #character frames
         self.cell = []

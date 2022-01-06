@@ -30,9 +30,10 @@ class Cammy(Champion):
         
 
         #Vairations
-        self.variation_images = [pyglet.sprite.Sprite(preload_image("Cammy/variation_A"))]
-        self.variation_names = ["Commando"]
-        self.variation_description = [self.variation_names[0] + ": Cammy has access to multiple command grabs. You can style with this by slipping them into a combo"]
+        self.variation_images = [pyglet.sprite.Sprite(preload_image("Cammy/variation_A")), pyglet.sprite.Sprite(preload_image("Cammy/variation_B"))]
+        self.variation_names = ["Renegade", "Commando"]
+        self.variation_description = [self.variation_names[0] + ": Cammy gains 'Brutal Strike' crippling her opponents by reducing their damage dealt by a certain amount",
+                                      self.variation_names[1] + ": Cammy has access to multiple command grabs. You can style with this by slipping them into a combo"]
 
         #Biography
         self.main_description = ["Cammy, uses her strong body and flexibility to counter and supress her opponents.",
@@ -254,8 +255,8 @@ class Cammy(Champion):
 
     def _skill(self, skill):
         self.mixup = ""
-        #Dragon Ball
-        if skill == "Leg Suplex" and self.stamina > 40:
+        #Leg Suplex
+        if skill == "Leg Suplex" and self.stamina > 40 and self.targetVariation == self.variation_names[1]:
             if self.state == "Grounded" or self.state == "Crouch":
                 self.stamina -= 40
                 self.state = "Skill"
@@ -300,7 +301,7 @@ class Cammy(Champion):
                 self.action = 12
                 
         #Shun' Po
-        if skill == "Shun' Po" and self.stamina > 40:                
+        if skill == "Shun' Po" and self.stamina > 40 and self.targetVariation == self.variation_names[1]:                
             if self.state == "Grounded" or self.state == "Crouch":
                 self.stamina -= 40
                 self.state = "Skill"      
@@ -538,7 +539,7 @@ class Cammy(Champion):
                 if self.frame >= len(self.frames27) - 1:
                     self.Play("Audio/jump.wav")
                     self.action = 12.5
-                    self.jumpHeight = 5
+                    self.jumpHeight = 6
                     self._height()
                     self.frame = 0
                 
@@ -639,7 +640,7 @@ class Cammy(Champion):
                     
             #Cannon Drill(Mid)
             if self.action == 17.3:
-                self.force = [6.7,4.5]
+                self.force = [6.3,4.7]
                 self.freezeInAir = True
                 self.targetFrame = self.frames25A
                 if self.targetFrame[int(self.frame)] == 82 and self.voiceFrame != 82:
@@ -675,12 +676,24 @@ class Cammy(Champion):
                     self.frame = 0
                     self.action = -100
                     hits = [6, 6.3, 6.5]
-                    if self.opponent.action in hits:
-                        self.action = self.grabChain
-                        self.targetGrabbed = self.opponent
-                        self.grabChain = 19.2
-                        self.targetGrabbed.frameSpeed = .05
-                        self.targetGrabbed.toGrab = True
+                    if self.opponent.hitCD < 1:
+                        #If the opponent is airborne
+                        if self.opponent.pos[1] > self.ground:
+                            self.opponent.pos[1] = self.ground
+                            self.opponent.state = "Grounded"
+                            self.opponent.action = random.choice(hits)
+                            self.opponent.frame = 0
+                            self.opponent.fall = False
+                            self.opponent.jump == False
+                            self.opponent.vel[1] = 0
+
+                        #If it hits
+                        if self.opponent.action in hits:
+                            self.action = self.grabChain
+                            self.targetGrabbed = self.opponent
+                            self.grabChain = 19.2
+                            self.targetGrabbed.frameSpeed = .05
+                            self.targetGrabbed.toGrab = True
                     
             #Command Grab - A (Start)
             if self.action == 19.1:

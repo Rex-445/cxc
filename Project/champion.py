@@ -519,7 +519,6 @@ class Champion():
 
     def Attack_Punch(self, type):
         dodge_states = [2, 2.5, 3, 3.5]
-        self.force = [3,0]
         if self.isControlled:            
             if type == "SP":
                 self.breaker_input += "S"
@@ -555,6 +554,7 @@ class Champion():
                         self.action = 2
                         self.typeHit = "Damage"
                         self.frame = 0
+                        self.force = [3,0]
                     if self.state == "Crouch" and self.action != 2.5 and self.action != 14.5:                    
                         #Check For Stamina
                         if self.stamina > 15 and self.Break_Stamina() == False:
@@ -565,7 +565,8 @@ class Champion():
                         
                         self.frame = 0
                         self.action = 2.5
-                        self.typeHit = "Damage"       
+                        self.typeHit = "Damage"   
+                        self.force = [3,0]    
                 
                 #Medium Punch
                 if type == "MP":
@@ -582,7 +583,9 @@ class Champion():
                         self.Play("Audio/wiff.wav")
                         self.action = 3
                         self.frame = 0
-                        self.typeHit = "Damage"    
+                        self.typeHit = "Damage"  
+                        self.force = [3,0]
+                        
                     if self.state == "Crouch" and self.action != 3.5 and self.action != 14.5:                    
                         #Check For Stamina
                         if self.stamina > 15 and self.Break_Stamina() == False:
@@ -594,7 +597,8 @@ class Champion():
                         self.Play("Audio/wiff.wav")
                         self.action = 3.5
                         self.frame = 0
-                        self.typeHit = "Damage"   
+                        self.typeHit = "Damage"  
+                        self.force = [3,0] 
                 #Grabbing
                 if type == "IP":
                     grabs = [21, 22]
@@ -640,6 +644,8 @@ class Champion():
                         self.action = 10
                         self.typeHit = "Damage"
                         self.frame = 0       
+                        self.force = [3,0]
+                        
                     if self.state == "Crouch" and self.action != 10.5 and self.action != 14.5:                    
                         #Check For Stamina
                         if self.stamina > 15 and self.Break_Stamina() == False:
@@ -650,13 +656,8 @@ class Champion():
                         
                         self.frame = 0
                         self.action = 10.5
-                        self.typeHit = "Damage"              
-                        #Check For Stamina
-                        if self.stamina > 15:
-                            self.stamina -= 15
-                            self.staminaSpeed = 0
-                        else:
-                            return
+                        self.typeHit = "Damage"
+                        self.force = [3,0]
                 
                 #Medium Kick
                 if type == "MK":
@@ -673,6 +674,8 @@ class Champion():
                         self.action = 11
                         self.typeHit = "Damage"
                         self.frame = 0
+                        self.force = [3,0]
+                        
                     if self.state == "Crouch" and self.action != 11.5 and self.action != 14.5:                    
                         #Check For Stamina
                         if self.stamina > 15 and self.Break_Stamina() == False:
@@ -684,6 +687,7 @@ class Champion():
                         self.action = 11.5
                         self.frame = 0
                         self.typeHit = "Damage"
+                        self.force = [3,0]
                         
     
     def Update_Alignment(self):
