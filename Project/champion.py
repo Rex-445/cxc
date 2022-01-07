@@ -1000,6 +1000,13 @@ class Champion():
 
         #Body
         #States
+        blockStates = [13, 13.5, 14, 14.5]
+        #Increase the hitBox size for blocking frames
+        if self.action in blockStates:
+            self.hitBox[2] = 100
+        else:
+            self.hitBox[2] = 50
+            
         self.body = [self.pos[0] + 40, self.pos[1], 50,85]
         if self.invincible:
             self.body = [self.pos[0] + 40, self.pos[1], 0,0]
@@ -1013,6 +1020,9 @@ class Champion():
         self.body_sprite.y = self.body[1]
         self.body_sprite.scale_x = self.body[2]/50
         self.body_sprite.scale_y = self.body[3]/85
+        #Hit Sprite
+        self.hit_sprite.scale_x = self.body[2]/50
+        self.hit_sprite.scale_y = self.body[3]/100
 
         #Getting Hit Effect
         self.blinkDuration -= .1

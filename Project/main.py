@@ -57,18 +57,17 @@ class Camera():
 
     def Encapsulate(self, p1, p2):
         self.center = [0,0]
-        leftPlayer = 0
         if p1.pos[0] > p2.pos[0]:
             dist = p1.pos[0] - p2.pos[0]
             dist = dist/2
-            leftPlayer = p2.pos[0] + dist
+            self.center[0] = p2.pos[0] + dist
         if p2.pos[0] > p1.pos[0]:
             dist = p2.pos[0] - p1.pos[0]
             dist = dist/2
-            leftPlayer = p1.pos[0] + dist
-            
-        self.center[0] = leftPlayer
-        self.AnchorTarget(self.center[0])
+            self.center[0] = p1.pos[0] + dist
+
+        if self.center[0] > 5:
+            self.AnchorTarget(self.center[0])
         
 
     def update(self, objs, user):
@@ -264,7 +263,7 @@ class Camera():
                 #Boundries
                 if b.pos[0] + b.sprite.width < 0:
                     b.alive = False
-                if b.pos[0] + b.sprite.width > self.stageWidth + 100:
+                if b.pos[0] + b.sprite.width > self.stageWidth + b.sprite.width:
                     b.alive = False
 
                 #Updates
@@ -288,11 +287,11 @@ class Camera():
         #Body and Hitbox Visuals
         for obj in objs:
             obj.hit_sprite.x -= self.pos[0]
-            obj.hit_sprite.y -= self.pos[1] + big_screen[1]
+            obj.hit_sprite.y -= self.pos[1] - big_screen[1]
             obj.body_sprite.x -= self.pos[0]
-            obj.body_sprite.y -= self.pos[1]
-##            obj.hit_sprite.draw()
-##            obj.body_sprite.draw()
+            obj.body_sprite.y -= self.pos[1] - big_screen[1]
+            obj.hit_sprite.draw()
+            obj.body_sprite.draw()
             self.update_vfx(obj.vfx)
             
 

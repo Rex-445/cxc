@@ -153,6 +153,7 @@ class Cammy(Champion):
         self.frames25A = [82, 83, 84, 85, 86, 87]
         #Cannon Drill(End)
         self.frames25B = [88, 89, 89]
+        self.frames25C = [93, 93, 94, 94, 95, 95, 95]
         self.freezeInAir = False
         self.kickLoop = 5
         #Spin Knuckle(Start)
@@ -186,7 +187,7 @@ class Cammy(Champion):
         #Sub Animation Win 2A (Loop)
         self.frames33 = [41]
         
-        #Super Cannon Drill
+        #Brutal Strike
         self.frames34 = [110, 110, 110, 110, 110, 110, 110, 110, 110, 111, 112, 112, 112, 113]
         self.frames34_forcesX = [0, 0, 0, 0, 0, 0, 5, 0, 0, 4, 0, 5, 5, 4]
         self.frames34_forcesY = [0, 0, 0, 0, 0, 0, 16, 16, 16, 8, 16, 0, 8, 0]
@@ -256,7 +257,7 @@ class Cammy(Champion):
     def _skill(self, skill):
         self.mixup = ""
         #Leg Suplex
-        if skill == "Leg Suplex" and self.stamina > 40 and self.targetVariation == self.variation_names[1]:
+        if skill == "Leg Suplex" and self.stamina > 40:
             if self.state == "Grounded" or self.state == "Crouch":
                 self.stamina -= 40
                 self.state = "Skill"
@@ -271,7 +272,8 @@ class Cammy(Champion):
                     self.rageBar -= 200
                     self.state = "Skill"
                     self.frame = 0
-                    self.action = 17      
+                    self.action = 17     
+                    self.invincible = True 
                     self.Play("Audio/Champs/Ryu/special.wav")
                     choice = random.choice(["Audio/Champs/Cammy/cannon_drillA.wav", "Audio/Champs/Cammy/cannon_drillB.wav"])
                     self.PlayVoice(choice)
@@ -646,6 +648,7 @@ class Cammy(Champion):
                 if self.targetFrame[int(self.frame)] == 82 and self.voiceFrame != 82:
                     self.Play("Audio/wiff.wav")
                     self.voiceFrame = 82
+                    self.invincible = False
                 if self.frame >= len(self.frames25) - 1:
                     if self.kickLoop > 0:
                         self.voiceFrame = 0
@@ -655,14 +658,35 @@ class Cammy(Champion):
                         self.kickLoop = 6
                         self.force = [0,0]
                         self.action = 17.5
+
+                #End Cannon Drill if opponent is blocking
+                blockStates = [13.5, 14.5]
+                if self.opponent.action in blockStates:
+                    self.freezeInAir = False
+                    self.frame = 0
+                    self.action = 17.8
+                    self.targetFrame = self.frames25C
+                    self.kickLoop = 6
+                    self.vel[0] = 8
+                    self.vel[1] = 9
                     
             #Cannon Drill(End)
             if self.action == 17.5:
                 self.freezeInAir = False
                 self.targetFrame = self.frames25B
-                if self.frame >= len(self.frames26) - 1:
+                if self.frame >= len(self.frames25B) - 1:
                     self.frame = 0
                     self.action = -1
+
+
+            #Cannon Drill Cancel
+            if self.action == 17.8:
+                self.freezeInAir = False
+                self.targetFrame = self.frames25C
+                if self.frame >= len(self.frames25C) - 1:
+                    self.frame = 0
+                    self.action = -1
+                
                     
                     
             #Command Grab - Main (Start)
