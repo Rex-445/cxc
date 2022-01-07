@@ -23,7 +23,7 @@ pygame.init()
 fullScreen = False
 big_screen = [150, 150]
 if fullScreen:
-    big_screen = [300, 200]
+    big_screen = [520, 300]
     
 class Camera():
     def __init__(self, pos=(0,0), target=None):
@@ -2060,12 +2060,12 @@ class GameWindow(pyglet.window.Window):
 
 def MakeWindow():
     global window
-    window = GameWindow(1000, 700, "Street Fighter X", resizable=False)
+    window = GameWindow(1000, 700, "Street Fighter X", resizable=False, vsync=True)
 ##    pyglet.clock.schedule_interval_soft(window.update, window.frame_rate)
 ##    cursor = window.get_system_mouse_cursor(window.CURSOR_WAIT)
 ##    window.set_mouse_cursor(cursor)
     window.set_fullscreen(fullscreen=fullScreen)
-    pyglet.clock.schedule_interval_soft(window.update, 1/60)
+    pyglet.clock.schedule_interval(window.update, 1/100)
     pyglet.app.run()
 
 class SplashScreen(pyglet.window.Window):
@@ -2091,7 +2091,7 @@ class SplashScreen(pyglet.window.Window):
 
 if __name__ == "__main__":
     splashScreen = SplashScreen(200, 200, style=pyglet.window.Window.WINDOW_STYLE_BORDERLESS)
-    pyglet.clock.schedule_interval_soft(splashScreen.update, 1/60)
+    pyglet.clock.schedule_interval(splashScreen.update, 1/100)
     pyglet.app.run()
 
 

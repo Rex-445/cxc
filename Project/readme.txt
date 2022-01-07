@@ -18,26 +18,52 @@ UPDATES
 8. Interactions between champions have been enhanced: characters now have quotes unique to other champions
 
 #For Nerds
-9. It is now possible to create your own backgrounds
+9. It is now possible to create your own backgrounds other than the ones already in the game
+the steps to do so are self explainatory.
+
+Step 1: Go to the bg data file in bg/data.txt"
+Step 2: Type in the directory of your "bg.txt" file (it can be named whatever you want just make sure the path exists) and the BGM
+Step 3: Create your "bg.txt" file and you're done
+
+NOTE: In the folder of your bg file be sure to add a compulsory file called "UI_BG.png"
 
 
 ---------------
     INPUTS
 ---------------
+
+===KEYBOARD===
+Arrow Keys - (Movement)
+
 ======Punches======
 Q - ('WP' meaning Weak Punch)
 W - ('MP' meaning Medium Punch)
-E - ('SP' meaning Super) - this only excutes super for punches and not kicks)
+E - ('SP' meaning Super)
 
 ======Kicks========
 A - ('WK' meaning Weak Kick)
 S - ('MK' meaning Medium Kick)
-D - ('SK' meaning Super - this only excutes super for kicks and not punches)
+D - ('SK' meaning Super)
+
+======Actions======
+R - ('IP' meaning Interactable Punch or Grab)
 
 
+===JOYSTICK=== - (The Joystick inputs gives the assumption that you are using the 'PS3 GamePad')
+Analog stick - (Movements)
 
-NOTE: ('P', means Any Punch, 'K' means any kick, 'RB' meaning 'Rage Bar', ' + ' means done in sequence)
-	
+======Punches======
+Box Button - ('WP' meaning Weak Punch)
+Triangle Button - ('MP' meaning Medium Punch)
+R1 - ('SP' meaning Super)
+
+======Kicks========
+X Button - ('WK' meaning Weak Kick)
+Circle Button - ('MK' meaning Medium Kick)
+R1 - ('SK' meaning Super)
+
+
+NOTE: ('P', means Any Punch, 'K' means any kick, 'RB' meaning 'Rage Bar', ' + ' means done in sequence)	
 
 
 ---------------
@@ -156,19 +182,6 @@ SPECIAL MOVES
 7. Air Kicks (0RB)
  Input method: (Shun' Po.....) + MK
 
-===Mixups===
-1. On Duty (Requirement: Variation B)
- Skills: Shun'Po + Leg Grab
-
-2. Drilled In
- Skills: Shun'Po + Cannon Drill
-
-3. Back Breaker
- Skills: Cannon Drill + Leg Grab
-
-4. The End
- Skills: Cannon Drill + Air Kicks + Leg Grab
-
 
 
 ===Akuma===
@@ -230,9 +243,6 @@ SPECIAL MOVES
 
 3. Flurry Kicks (AIRBORNE) (200RB)
  Input method: > + < + K + K
-
-===Mixups===
-1. 
 
 
 =========================================================================
