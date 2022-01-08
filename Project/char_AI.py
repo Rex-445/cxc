@@ -75,11 +75,6 @@ class Human_AI():
         #Suprise Super
         self.suprise = random.choice(["True", "False"])
 
-    def Reset(self):
-        self.champion.KeyUp("Left")
-        self.champion.KeyUp("Right")
-        self.champion.KeyUp("Down")
-
     def Distance(self):
         dist = ((self.champion.pos[0] + self.champion.body[0]) - (self.opponent.pos[0] + self.opponent.body[0]))
         if dist < 0:
@@ -135,6 +130,8 @@ class Human_AI():
     
     def Movement(self):
         walk_states = [0, 1]
+        self.champion.hitPunch = "MP"
+        self.champion.hitKick = "MK"
 ##        attacking_actions = [2, 2.5, 3, 3.5, 9, 10, 10.5, 11, 11.5, 12, 17.3, 12.5, 12.8, 13, 13.5, 14, 14.5, 19, 19.1, 19.2, 21, 22]
         if self.champion.action in walk_states:
             if self.champion.state == "Grounded":
@@ -213,11 +210,11 @@ class Human_AI():
             #If the opponent is not downed
             if self.opponent.action != 7.9:
                 #If mid range
-                if self.midRange:
+                if self.midRange and self.rangeEgo > self.abilityEgo:
                     if not self.opponentInAir:
                         self.champion.key_combo_time = 0
                         self.champion.key_combo = random.choice(self.defensiveSkill)
-                        self.rangeEgo = 0
+                        self.rangeEgo = self.abilityEgo - 10
                         self.ego += 10
                     if self.opponentInAir:
                         self.champion.key_combo_time = 0
@@ -253,7 +250,15 @@ class Human_AI():
                     self.Attack()
         else:
             self.Reset()
-    
+  
+
+    def Reset(self):
+        self.champion.KeyUp("Left")
+        self.champion.KeyUp("Right")
+        self.champion.KeyUp("Down")
+        self.champion.KeyUp("Up")
+
+        
     def Control(self):
         self.lowHealth = self.champion.health
         self.healthAdvantage = self.champion.health >= self.opponent.health

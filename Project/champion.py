@@ -318,25 +318,6 @@ class Champion():
         
     def LoadAllFilesFromDirectory(self, path):
         return os.listdir(path)
-    
-    #determine the amount of frames the GameObject would require
-    def load_image_frames(self, amount, maxRowSize):
-        self.row = 0
-        self.col = 0
-        for n in range(amount):
-            rect = pygame.Rect(self.row, self.col, self.width, self.height)
-            if rect.x < maxRowSize:
-                self.image = pygame.Surface(rect.size)
-                self.image.blit(self.sprite, (0,0), rect)
-                self.alpha = self.image.get_at((0,0))
-                self.image.set_colorkey(self.alpha)
-                self.cells.append(self.image)
-                self.row += self.width
-            else:
-                self.row = 0
-                self.col += self.height
-        self.col = 0
-        self.row = 0
 
     #function was made to make GameObject's Initilization easier       
     def __init__self__(self, row, col, width, height, img):
@@ -963,7 +944,7 @@ class Champion():
         self.Update_Alignment()
         
         if self.burnSheet:
-            self.frameSpeed = .1
+            self.frameSpeed = .2
             self.targetFrame = self.burnFrames
             self.action = -5
             

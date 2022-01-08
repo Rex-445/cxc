@@ -31,8 +31,12 @@ class FeiLong(Champion):
         #Vairations
         self.variation_images = [pyglet.sprite.Sprite(preload_image("Fei'Long/variation_A")), pyglet.sprite.Sprite(preload_image("Fei'Long/variation_B"))]
         self.variation_names = ["Kung'Fu", "Fei' Jit Su"]
-        self.variation_description = [self.variation_names[0] + ": Fei'Long gains strong attacks but has reduced speed, he deals bonus damage depending on how much health he has",
-                                      self.variation_names[1] + ": Fei'Long can parry opponents agaiinst basic attacks, he also gains attack speed that scales with his rage bar"]
+        self.variation_description = [self.variation_names[0] + ": Fei'Long gains strong attacks but has reduced speed, his 'Aura Flow' improves his basic attacks and punches",
+                                      self.variation_names[1] + ": Fei'Long can parry opponents against basic attacks, he also gains attack speed that scales with his rage bar"]
+        #Variation_Skill
+        self.auraTime = 0
+        self.maxAuraTime = 100
+        self.damageBuff = 20
 
         #Biography
         self.main_description = ["Fei'Long is a strong warrior that participated in the battle among daemons and humans. He joined Ryu ",
@@ -268,6 +272,8 @@ class FeiLong(Champion):
         #Aura Flow
         if skill == "Aura Flow":                
             if self.state == "Grounded" or self.state == "Crouch":
+                if self.targetVariation == self.variation_names[0]:
+                    self.auraTime = self.maxAuraTime
                 self.state = "Skill"      
                 self.frame = 0
                 self.PlayVoice("Audio/Champs/Fei'Long/Skill/skill_chargeB.wav")
@@ -275,7 +281,7 @@ class FeiLong(Champion):
                 
         #Parry
         if skill == "Parry":                
-            if self.state == "Grounded" or self.state == "Crouch":
+            if self.state == "Grounded" or self.state == "Crouch" and self.targetVariation == self.variation_names[1]:
                 self.grabChain = 19
                 self.parry = True
                 self.state = "Skill"      
@@ -312,8 +318,7 @@ class FeiLong(Champion):
     def Update_Alignment(self):
         #Update Alignment
         self.x = 0
-        self.y = 0
-        self.attacking_actions = [2, 2.5, 3, 3.5, 9, 10, 10.5, 11, 11.5, 12, 17.3, 12.5, 13, 13.5, 14, 14.5, 19, 21, 22, 30, 31]        
+        self.y = 0    
         if self.direction == 1:
             self.x = self.pos[0] + self.alignX[self.targetFrame[int(self.frame)]] + -5
             self.y = self.pos[1] + self.alignY[self.targetFrame[int(self.frame)]]
@@ -321,7 +326,7 @@ class FeiLong(Champion):
         if self.direction == -1:
             self.x = self.pos[0] - self.alignX[self.targetFrame[int(self.frame)]] + 140
             self.y = self.pos[1] + self.alignY[self.targetFrame[int(self.frame)]]
-        
+
          
     def Update(self):
         if self.opponent != None:
@@ -329,6 +334,11 @@ class FeiLong(Champion):
                 self.oldSpeed = self.opponent.frameSpeed
                 
         if self.pause <= 0:
+            #Decrement Aura Time
+            self.auraTime -= .05
+            if self.auraTime > 0:
+                self.damage = 25
+            
             if self.targetVariation == "Fei' Jit Su":
                 self.frameSpeed = self.defualtSpeed + (self.rageBar / 4000)
             self.frame += self.frameSpeed

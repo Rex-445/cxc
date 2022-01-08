@@ -11,7 +11,6 @@ class Bison(Champion):
     def __init__(self, name):
         super().__init__(name)
         self.hitBoxOffset = -40
-        self.aura = False
         self.action = -4
         self.frameSpeed = .3
         self.defualtSpeed = .3

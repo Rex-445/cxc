@@ -255,6 +255,14 @@ class Camera():
                 obj.bdy.y -= self.pos[1]
             if obj.canDraw:
                 obj.bdy.draw()
+                try:
+                    if len(obj.aura) > 0:
+                        auraBdy = pyglet.sprite.Sprite(obj.aura[obj.targetFrame[int(obj.frame)]], obj.bdy.x, obj.bdy.y)
+                        auraBdy.scale_x = obj.bdy.scale_x
+                        if obj.auraTime > 0:
+                            auraBdy.draw()
+                except:
+                    pass
 
         #Projectiles
         for obj in objs:
@@ -290,8 +298,8 @@ class Camera():
             obj.hit_sprite.y -= self.pos[1] - big_screen[1]
             obj.body_sprite.x -= self.pos[0]
             obj.body_sprite.y -= self.pos[1] - big_screen[1]
-            obj.hit_sprite.draw()
-            obj.body_sprite.draw()
+##            obj.hit_sprite.draw()
+##            obj.body_sprite.draw()
             self.update_vfx(obj.vfx)
             
 
@@ -583,10 +591,10 @@ class GameWindow(pyglet.window.Window):
         self.player1.talking = True
         
         #AI
-        self.AIs = AI
+        print(AI)
         if AI > 0:
             self.AI = Human_AI(champion=self.player2, opponent=self.player1)
-        if AI > 1:
+##        if AI > 1:
             self.AI2 = Human_AI(champion=self.player1, opponent=self.player2)
 
         self.Make_Player_UI(randChoice)
@@ -1944,7 +1952,7 @@ class GameWindow(pyglet.window.Window):
             if menuManager.stage == "Battle":
                 self.stallTime -= 5 * dt
             else:
-                self.stallTime -= .01 * dt
+                self.stallTime -= .5 * dt
                 
             if self.stallTime <= 0:
                 if menuManager.stage == "Finish":
@@ -1962,7 +1970,6 @@ class GameWindow(pyglet.window.Window):
                 if menuManager.stage != "Battle":
                     self.PlaySound("Audio/Sys/22H.wav")
                     self.Make_Players(random.choice(choices), choice, AI=2)
-                    self.AIs = 2
                     window.set_exclusive_mouse(True)
                     menuManager.mode = "WatchGame"
 
@@ -1970,9 +1977,8 @@ class GameWindow(pyglet.window.Window):
                 else:
                     self.stallTime = self.maxStallTime
                     choice = menuManager.enemy.name
-                    self.AIs = 1
                     menuManager.player = menuManager.charSelect[menuManager.charSelectID]
-                    self.Make_Players(menuManager.player.name, choice, AI=0)
+                    self.Make_Players(menuManager.player.name, choice, AI=self.AIs)
                     window.set_exclusive_mouse(True)
                     menuManager.mode = "Game"
                 self.Build_BG()

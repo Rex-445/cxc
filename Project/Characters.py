@@ -53,6 +53,8 @@ def Char_FeiLong(pos=[0,0], outfit=""):
     feiLong.__init__self__(10, 10, 150, 150, feiLong.defualt[0]+outfit+".png")
     feiLong.__init__self__(10, 10, 150, 150, feiLong.defualt[1]+outfit+".png")
     feiLong.__init__self__(row=2, col=4, width=150, height=150, img="sprites/burn.png")
+    feiLong.__init__aura__(10, 10, 150, 150, feiLong.defualt[0] + "_Glow.png")
+    feiLong.__init__aura__(10, 10, 150, 150, feiLong.defualt[0] + "_Glow2.png")
     return feiLong
 
 def Char_ChunLi(pos=[0,0], outfit=""):
