@@ -137,6 +137,10 @@ class Champion():
         self.blinking = True
         self.blinkDuration = 0
 
+        #Ultra
+        self.ultra = False
+        self.ultraCount = 0
+
         #Burning
         self.burning = False
         self.burnTime = 0
@@ -903,6 +907,7 @@ class Champion():
                     self.hitPunch =  ""
                     self.hitKick = ""
                     self.staminaSpeed = 0
+                    self.opponent.hitCD = self.opponent.maxHitCD
                     if self.state == "Airborne" or self.state == "Skill":
                         self.mixup = self.skill[n][0]
                         self.skill_combo_time = 0

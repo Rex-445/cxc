@@ -634,8 +634,8 @@ class GameWindow(pyglet.window.Window):
         self.bloodLine1.scale_x = 1.7
         self.bloodLine1.scale_y = 1.7
         #Stamina
-        self.staminaBar1 = pyglet.sprite.Sprite(pyglet.image.load("sprites/staminaBar.png"), x=73, y=300 + big_screen[1])
-        self.staminaBoarder1 = pyglet.sprite.Sprite(pyglet.image.load("sprites/staminaBoarder.png"), x=73, y=300 + big_screen[1])
+        self.staminaBar1 = pyglet.sprite.Sprite(pyglet.image.load("sprites/staminaBar.png"), x=130, y=300 + big_screen[1])
+        self.staminaBoarder1 = pyglet.sprite.Sprite(pyglet.image.load("sprites/staminaBoarder.png"), x=130, y=300 + big_screen[1])
         #RageBar
         self.rageBarOutline1 = pyglet.sprite.Sprite(pyglet.image.load("sprites/rage_bar_outline.png"), x=70, y=313 + big_screen[1])
         self.rageBarOutline1.scale_x = 1.3
@@ -1379,7 +1379,6 @@ class GameWindow(pyglet.window.Window):
                 self.stallTime = self.maxStallTime
             if button == mouse.LEFT:
                 hasClicked = False
-                canChange = False
                 if self.targetInput != None:
                     self.targetInput.active = False
                     self.targetInput.text.text = self.targetInput.user_text + "|"
@@ -1388,30 +1387,72 @@ class GameWindow(pyglet.window.Window):
                     
                 for mb in menuManager.draw_list:
                     if mb.on_click(x,y) and hasClicked == False:
-                        if mb.type == "InputField":
-                            self.targetInput = mb.get_click()
-                            hasClicked = True
-
-                        #In Case of Buttons
-                        if mb.type == "Button":
-                            canChange = True
-                                    
-                            #Selecting an Icon
-                            if menuManager.stage == "PlayerIcon":
-                                SavePlayerData(name=self.playerNameText.text, icon=mb.name)
-                                self.playerIcon = pyglet.sprite.Sprite(pyglet.image.load("UI/PlayerData/Icons/"+mb.name+".png"), x=70, y=460 + big_screen[1], batch=self.menu_batch)
-                                self.playerIcon.scale_x = .5
-                                self.playerIcon.scale_y = .5
-                                
-                            #If targetInput is not null reset it
+                        canChange = True
+                        resetButton = True
+                        
+                        #Login Screen
+                        if menuManager.stage == "PlayerDetails":
                             if self.targetInput != None:
-                                self.targetInput.active = False
-                                self.targetInput = None
-                    menuManager.player = menuManager.charSelect[menuManager.charSelectID]
-                    
-                    if canChange:
-                        self.play._set_playing(False)
-                        menuManager.update_all_menu_objects()
+                                if self.targetInput.user_text != "":
+                                    player_name = self.targetInput.user_text
+                                    self.playerNameText.text = player_name
+                                    SavePlayerData(name=player_name)
+                                    self.targetInput = None
+                                    menuManager.update_menu_objects()
+                                else:
+                                    canChange = False
+                            else:
+                                canChange = False
+
+                        if mb.name.startswith("Controls"):
+                            canChange = False
+                            self.isSettingKeys = mb.next.split('_')[-1]
+                            resetButton = False
+                            return
+                                
+                        #Selecting an Icon
+                        if menuManager.stage == "PlayerIcon":
+                            SavePlayerData(name=self.playerNameText.text, icon=mb.name)
+                            self.playerIcon = pyglet.sprite.Sprite(pyglet.image.load("UI/PlayerData/Icons/"+mb.name+".png"), x=20, y=460 + big_screen[1], batch=self.menu_batch)
+                            self.playerIcon.scale_x = .5
+                            self.playerIcon.scale_y = .5
+                            
+                        #If targetInput is not null reset it
+                        if self.targetInput != None:
+                            self.targetInput.active = False
+                            self.targetInput = None
+
+                        if canChange:
+                            menuManager.Change(mb)
+                            menuManager.starter = True
+                            
+                        if mb.name == "story_mode":
+                            self.Make_Story_Characters()
+
+                        if mb.name == "exit_game":
+                            self.PlayMusic("BGM/BGM.mp3")
+
+                        if mb.name == "Save":
+                            self.SaveJoystickKeys()
+                            print("Saved Data")
+                            
+                        if mb.name == "Exit":
+                            self.close()
+                            pyglet.app.exit()
+                            
+                        if mb.name == "Begin":
+                            self.stallTime = self.maxStallTime
+                            menuManager.stage = "Battle"
+                            menuManager.enemy = random.choice(menuManager.charSelect)
+                        if mb.name == "next" or mb.name == "prev":
+                            resetButton = False
+
+                        menuManager.player = menuManager.charSelect[menuManager.charSelectID]
+                        menuManager.update_menu_objects(resetButton)
+                                
+                        if canChange:
+                            self.play._set_playing(False)
+                            menuManager.update_all_menu_objects()
                         
                         
 
@@ -1423,8 +1464,9 @@ class GameWindow(pyglet.window.Window):
         pass
 
     def on_mouse_motion(self, x, y, dx, dy):
-##        for mb in menuManager.draw_list:
-##            mb.IsHover(x,y)
+        for mb in menuManager.draw_list:
+            if mb != menuManager.selectedItem:
+                mb.IsHover(x,y)
         pass
 
     def IsDecimal(self, number):
@@ -1992,7 +2034,7 @@ class GameWindow(pyglet.window.Window):
                     choice = menuManager.enemy.name
                     menuManager.player = menuManager.charSelect[menuManager.charSelectID]
                     self.Make_Players(menuManager.player.name, choice, AI=self.AIs)
-                    window.set_exclusive_mouse(True)
+                    self.set_exclusive_mouse(True)
                     menuManager.mode = "Game"
                 self.Build_BG()
 
