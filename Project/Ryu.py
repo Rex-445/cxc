@@ -40,6 +40,11 @@ class Ryu(Champion):
         for d in self.main_description:
             self.description += d
 
+        #Variation_Skill
+        self.auraTime = 0
+        self.maxAuraTime = 100
+        self.damageBuff = 20
+
         #Projectiles
         self.spawnFrame = 0
         self.balls = []
@@ -73,7 +78,7 @@ class Ryu(Champion):
 
         #Combination
         self.skill = [["dfA", "Dragon Ball"], ["fdA", "Dragon Punch"], ["dbK", "Hurricane Kick"], ["dbSK", "Super Hurricane Kick"],
-                      ["dfSA", "Super Dragon Ball"], ["bdfA", "Advanced Dragon Ball"]]
+                      ["dfSA", "Super Dragon Ball"], ["bdfA", "Advanced Dragon Ball"], ["ddSS", "Dragon Born"]]
 
         ################ Animations ###############
         #Standing
@@ -182,6 +187,13 @@ class Ryu(Champion):
 
     def _skill(self, skill):
         self.mixup = ""
+        #Dragon Born
+        if self.state == "Grounded" or self.state == "Crouch":
+            if skill == "Dragon Born" and self.stamina > 90 and self.auraTime <= 0:
+                self.Play("Audio/Champs/Ryu/special.wav")
+                self.frame = 0
+                self.auraTime = self.maxAuraTime
+                
         #Dragon Ball
         if self.state == "Grounded" or self.state == "Crouch":
             if skill == "Dragon Ball" and self.stamina > 20:
@@ -204,7 +216,7 @@ class Ryu(Champion):
 
         #Super Dragon Ball
         if self.state == "Grounded" or self.state == "Crouch":
-            if skill == "Super Dragon Ball" and self.rageBar >= 600:
+            if skill == "Super Dragon Ball" and self.rageBar >= 600 and self.auraTime > 0:
                 self.rageBar -= 600
                 self.faces.append(Face("sprites/Ryu/Ryu_Face.gif", self.direction))
                 self.state = "Skill"
@@ -216,6 +228,9 @@ class Ryu(Champion):
                 self.Play("Audio/Champs/Ryu/special.wav")
                 self.frame = 0
                 self.action = 18
+                #Variation Advantage
+                if self.auraTime > 0:
+                    self.rageBar += 200
 
         #Dragon Punch
         if self.state == "Grounded" or self.state == "Crouch":
@@ -266,6 +281,9 @@ class Ryu(Champion):
                 self.Play("Audio/Champs/Ryu/special.wav")
                 self.frame = 0
                 self.action = 12
+                #Variation Advantage
+                if self.auraTime > 0:
+                    self.rageBar += 100
 
     #Audio
     def Play(self, file):
@@ -328,6 +346,8 @@ class Ryu(Champion):
             self.key_combo_time += .1
             if self.key_combo_time > 5:
                 self.key_combo = ""
+
+            self.auraTime -= .1
                 
             self.UpdateActions()
 

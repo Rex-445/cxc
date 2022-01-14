@@ -252,7 +252,7 @@ SPECIAL MOVES
 -------------
    Credits
 -------------
-Sprites: ripped by Lord Zymeth link: www.finadlestinationpixelation.com
+Sprites: ripped by Lord Zymeth link: www.finaldestinationpixelation.com
 Sounds: Ripped from The Sound Source
 Backgrounds: Gotten from Little Fighter 2 made by Marti Wong
 

@@ -23,6 +23,7 @@ class MenuManager():
         self.player = None
         self.selectedItem = None
         self.starter = True
+        self.updateMenu = True
 
     def LoadBGFile(self, file):
         f = open(file,'r')
@@ -222,11 +223,13 @@ class MenuManager():
             m.sprite.y = m.pos[1]
             
     def update_all_menu_objects(self):
+        self.updateMenu = True
+        
         for c in self.charSelect:
             if self.variationSelectID < len(c.variation_names):
                 c.targetVariation = c.variation_names[self.variationSelectID]
             #Character Description
-            for des in self.draw_list:
+            for des in self.draw_list:                    
                 if des.type == "Image":
                     #Champions Potrait
                     if des.name == "UI_Potrait":
@@ -359,8 +362,6 @@ class MenuObject():
                 self.sprite = pyglet.sprite.Sprite(pyglet.image.load("UI/UI_Base.png"), x=self.pos[0], y=self.pos[1])
                 self.sprite.scale_x = float(self.size[0])
                 self.sprite.scale_y = float(self.size[1])
-                if self.type == "Button":
-                    self.sprite.opacity = self.defualt
 
         if self.type == "InputField":
             self.text = pyglet.text.Label(self.name, x=self.pos[0], y=self.pos[1], multiline=False, width=500)

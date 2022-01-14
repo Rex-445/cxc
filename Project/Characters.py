@@ -18,6 +18,8 @@ def Char_Ryu(pos=[0,0], outfit=""):
     ryu.__init__self__(10, 4, 150, 150, ryu.defualt[1]+outfit+".png")
     ryu.__init__self__(10, 10, 150, 150, "sprites/Ryu/Ryu_glow.png")
     ryu.__init__self__(row=2, col=4, width=150, height=150, img="sprites/burn.png")
+    ryu.__init__aura__(10, 10, 150, 100, ryu.defualt[0] + "_Aura.png")
+    ryu.__init__aura__(10, 1, 150, 150, ryu.defualt[0] + "_Aura2.png")
     return ryu
 
 def Char_AntiRyu(pos=[0,0], outfit=""):

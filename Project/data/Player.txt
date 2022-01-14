@@ -1,5 +1,5 @@
-PlayerName: CESRex
+PlayerName: Defualt
 Level: 1
-Icon: Ryu_head
+Icon: Monk_head
 Favourite Champion: None
 Boarder: Boarder2
