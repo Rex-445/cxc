@@ -27,8 +27,8 @@ class Ryu(Champion):
         self.variation_images = [pyglet.sprite.Sprite(preload_image("Ryu/variation_A")), pyglet.sprite.Sprite(preload_image("Ryu/variation_B"))]
         self.variation_names = ["Dragon Born", "Possessed"]
         self.targetVariation = self.variation_names[0]
-        self.variation_description = [self.variation_names[0] + ": Ryu gains access to multiple ranged abilities, his Super Dragon Ball restores 50 ragebar if it hits an enemy",
-                                      self.variation_names[1] + ": Ryu gives in to Tat'sui no' hado and becomes Anti-Ryu, gaining new abilities"]
+        self.variation_description = [self.variation_names[0] + ": Ryu gains access to multiple ranged abilities, his Super Dragon Ball restores 50 ragebar if it hits an enemy. Ryu also unlocks 'Dragon Stance', in this state he gains rapidly increasing ragebar and reduced cost for any special attack.",
+                                      self.variation_names[1] + ": Ryu gives in to Tat'sui no' hado and becomes Anti-Ryu, gaining new abilities. Ryu also unlocks 'Rage Stance', in this tsate any successful projectile hit restores health to him depending on the damage dealt to opponents."]
         
         #Biography
         self.main_description = ["Ryu is the chosen warrior to protect the temple of Vaal, which was previously guarded by his Master, Eigen.",
@@ -348,6 +348,8 @@ class Ryu(Champion):
                 self.key_combo = ""
 
             self.auraTime -= .1
+            if self.auraTime > 0:
+                self.rageBar += .1
                 
             self.UpdateActions()
 

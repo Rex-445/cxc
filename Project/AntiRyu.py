@@ -203,7 +203,8 @@ class AntiRyu(Champion):
         self.mixup = ""
         #Dragon Ball
         if self.state == "Grounded" or self.state == "Crouch":
-            if skill == "Dragon Ball":
+            if skill == "Dragon Ball" and self.stamina > 40:
+                self.stamina -= 40
                 self.state = "Skill"
                 self.Play("Audio/Champs/Anti-Ryu/Skill/dragon_ball.wav")
                 self.frame = 0
@@ -237,7 +238,8 @@ class AntiRyu(Champion):
 
         #Dragon Punch
         if self.state == "Grounded" or self.state == "Crouch":
-            if skill == "Dragon Punch":
+            if skill == "Dragon Punch" and self.stamina > 60:
+                self.stamina -= 30
                 self.state = "Skill"
                 self.PlayVoice("Audio/Champs/Anti-Ryu/Skill/dragon_punch.wav")
                 self.frame = 0
@@ -252,7 +254,8 @@ class AntiRyu(Champion):
                 self.frame = 0
                 self.action = 17.3
                 
-            if self.state == "Grounded" or self.state == "Crouch":
+            if self.state == "Grounded" or self.state == "Crouch" and self.stamina > 30:
+                self.stamina -= 30
                 self.state = "Skill"
                 self.Play("Audio/jump.wav")
                 self.frame = 0

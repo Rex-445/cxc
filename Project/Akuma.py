@@ -28,7 +28,7 @@ class Akuma(Champion):
         
         #Biography
         self.main_description = ["Akuma is a dark warrior that posses 'Anti-Glory', he thirsts for power and more of Glory. He ",
-                            "continues to reign havoc on acient temples rooting out their secrets of unspeakable power, he",
+                            "continues to reign havoc on acient temples rooting out their secrets of unspeakable power, he ",
                             "tried convincing Ryu to join him but Ryu refused, this angered him thus leading to their bloody battle",
                             ", Ryu was victrious but Akuma escaped, hiding in the shadows, waiting for revenge."]
         self.description = ""

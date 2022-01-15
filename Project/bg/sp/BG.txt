@@ -1,4 +1,6 @@
 BG Name: The Old Prison
+//
+//Biography
 
 image;bg/sp/Base.png; BG; CameraType: 2
 loop: 3; offset: 554, 0; zpos: 1

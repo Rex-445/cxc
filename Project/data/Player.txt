@@ -1,5 +1,5 @@
-PlayerName: CESRex
+PlayerName: Des
 Level: 1
-Icon: Anti-Ryu_head
+Icon: Ken_head
 Favourite Champion: None
 Boarder: Boarder2

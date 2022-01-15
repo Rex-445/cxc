@@ -17,6 +17,7 @@ class MenuManager():
         self.variationSelectID = 0
         self.charSelectID = 0
         self.stageSelectID = 0
+        self.iconSelectID = 0
         self.skillCheckID = 0
         self.oneShot = False
         self.enemy = None
@@ -45,10 +46,6 @@ class MenuManager():
             resource = data2[1].split(';')
             sounds.append(resource[0].split(':')[1])
         return BGS, sounds
-        
-
-    def AddMenuObject(self, pos=(0,0), size=(1,1), stage="Main", name="MenuObject"):
-        self.menu_objects.append(MenuObject(pos=pos, size=size, name=name, stage=stage))
 
     def update_menu_objects(self, resetButton=True):
         self.draw_list = []
@@ -235,7 +232,7 @@ class MenuManager():
                     if des.name == "UI_Potrait":
                         pos = des.pos
                         sprite = pyglet.sprite.Sprite(pyglet.image.load("sprites/Heads/"+self.player.name+"_head.png"))
-                        des.sprite = sprite
+                        des.sprite.image = sprite.image
                         des.sprite.x = pos[0]
                         des.sprite.y = pos[1]
                         
@@ -243,7 +240,7 @@ class MenuManager():
                     if des.name == "Enemy_UI_Potrait":
                         pos = des.pos
                         sprite = self.enemy.select_head
-                        des.sprite = sprite
+                        des.sprite.image = sprite.image
                         des.sprite.x = pos[0]
                         des.sprite.y = pos[1]
                         
@@ -251,7 +248,7 @@ class MenuManager():
                     if des.name == "UI_Potrait_Finish":
                         pos = des.pos
                         sprite = self.player.finishImage
-                        des.sprite = sprite
+                        des.sprite.image = sprite.image
                         des.sprite.x = pos[0]
                         des.sprite.y = pos[1]
                         
@@ -259,14 +256,19 @@ class MenuManager():
                     if des.name == "UI_Enemy_Potrait_Finish":
                         pos = des.pos
                         sprite = self.enemy.finishImage
-                        des.sprite = sprite
+                        des.sprite.image = sprite.image
                         des.sprite.x = pos[0]
                         des.sprite.y = pos[1]
                         
                     if des.name == "UI_BG":
                         pos = des.pos
                         sprite = pyglet.sprite.Sprite(pyglet.image.load(self.bgs[self.stageSelectID][:6]+ "UI_BG.png"), x=pos[0], y=pos[1])
-                        des.sprite = sprite
+                        des.sprite.image = sprite.image
+
+                    if des.name == "Icon":
+                        pos = des.pos
+                        sprite = self.charSelect[self.iconSelectID].select_head
+                        des.sprite.image = sprite.image
 
                 #TEXT
                 if des.type == "Text":
@@ -292,11 +294,10 @@ class MenuManager():
                     
     def Change(self, mb):
         stageID = ["Champion_Select", "Stage_Select", "Variation_Select"]
-        if mb.name == "next" or mb.name == "prev":
+        if mb.name == "next" or mb.name == "prev" or mb.name == "right" or mb.name == "left":
             self.starter = False
         else:
             self.starter = True
-        print(self.starter)
             
         if mb.name == "Back":
             self.variationSelectID = 0
@@ -328,6 +329,13 @@ class MenuManager():
             if mb.name == "prev" and self.stageSelectID > 0:
                 self.stageSelectID -= 1
             self.stage = mb.next + str(self.stageSelectID)
+
+        if mb.next == "PlayerIcon":
+            if mb.name == "right" and self.iconSelectID < len(self.charSelect) - 1:
+                self.iconSelectID += 1
+            if mb.name == "left" and self.iconSelectID > 0:
+                self.iconSelectID -= 1
+            
                 
         if mb.next not in stageID:
             self.stage = mb.next
@@ -336,7 +344,7 @@ class MenuManager():
             
 
 class MenuObject():
-    def __init__(self, pos=(0,0), size=(1,1), name="MenuObject", stage="Main", type="Button", next="None", color=[0,0,0,255], first=False):
+    def __init__(self, pos=(0,0), size=(1,1), name="MenuObject", stage="Main", type="Button", next="None", color=[0,0,0,255], first=False, font="Times New Romans"):
         self.pos = list(pos)
         self.first = first
         self.type = type
@@ -371,11 +379,13 @@ class MenuObject():
             self.textType = next
             self.active = False
             self.user_text = ""
+            self.text.font_name = font
             
         if self.type == "Text":
             self.sprite = pyglet.text.Label(self.name, x=self.pos[0], y=self.pos[1], multiline=True, width=610)
             self.sprite.color = (self.color[0], self.color[1], self.color[2], self.color[3])
             self.sprite.font_size = self.size[0]
+            self.sprite.font_name = font
 
         #Button Actions
         self.next = next
@@ -437,21 +447,31 @@ for m in range(len(menu)):
         stage = menu[m].split(';')[3].split(':')[1][1:]
         type = menu[m].split(';')[4].split(':')[1][1:]
         next = menu[m].split(';')[5].split(':')[1][1:]
-        try:
-            first = menu[m].split(';')[7].split(':')[1][1:]
-        except:
-            first = False
+
+        #Color
         try:
             color = menu[m].split(';')[6].split(':')[1].split(',')
             if len(color) <= 3:
                 color.append(255)
             for c in range(len(color)):
                 color[c] = int(color[c])
-##            print(name, color)
         except:
             color = [255,255,255,255]
+        
+        #First
+        try:
+            first = menu[m].split(';')[7].split(':')[1][1:]
+        except:
+            first = False
+
+        #Font_Type
+        try:
+            font = menu[m].split(';')[8].split(':')[1][1:]
+        except:
+            font = "Constantia"
+            
                     
-        menuManager.menu_objects.append(MenuObject(pos=pos, size=size, name=name, stage=stage, type=type, next=next, color=color, first=first))
+        menuManager.menu_objects.append(MenuObject(pos=pos, size=size, name=name, stage=stage, type=type, next=next, color=color, first=first, font=font))
 
 menuManager.update_menu_objects()
 #Check

@@ -20,7 +20,7 @@ def ResetPlayerData():
 
             f.close()
 
-##ResetPlayerData()
+ResetPlayerData()
 
     
 f = open("data/Player.txt",'r')

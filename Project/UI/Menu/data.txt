@@ -5,9 +5,9 @@ Position:73,114; Size:1,.95; Image&Name: UI_BG; Stage: Stage_Select; ItemType: I
 Position:315,20; Size:1,1; Image&Name: Begin; Stage: Stage_Select; ItemType: Button; Next: Battle; Color: 0,0,0; First: True
 Position:391,120; Size:.7,.7; Image&Name: prev; Stage: Stage_Select; ItemType: Button; Next: Stage_Select
 Position:589,120; Size:.7,.7; Image&Name: next; Stage: Stage_Select; ItemType: Button; Next: Stage_Select
-Position:480,220; Size:13,1; Image&Name: Text_Base; Stage: Stage_Select; ItemType: Text; Next: None; Color:255,255,0
+Position:480,220; Size:13,1; Image&Name: Text_Base; Stage: Stage_Select; ItemType: Text; Next: None; Color:255,255,0; First: False; Font: Constantia
 Position:60,20; Size:1,1; Image&Name: Back; Stage: Stage_Select; ItemType: Button; Next: Variation_Select
-Position:500,177; Size:13,1; Image&Name: Text_BG_Size; Stage: Stage_Select; ItemType: Text; Next: None; Color:255,255,255
+Position:500,177; Size:13,1; Image&Name: Text_BG_Size; Stage: Stage_Select; ItemType: Text; Next: None; Color:255,255,255; First: False; Font: Constantia
 //
 //
 //This is the Skill Check Stage
@@ -18,10 +18,10 @@ Position:50,10; Size:1,.95; Image&Name: SkillCheck; Stage: SkillCheck; ItemType:
 //Champions Names
 Position:-100,-20; Size:1,.95; Image&Name: UI_Champ; Stage: Champion_Select; ItemType: Image; Next: None
 Position:105,115; Size:12,1; Image&Name: Text_Name; Stage: Champion_Select; ItemType: Text; Next: None; Color:255,255,0
-Position:70,345; Size:10,1; Image&Name: Text_Des; Stage: Champion_Select; ItemType: Text; Next: None; Color:255,255,0
+Position:60,345; Size:10,1; Image&Name: Text_Des; Stage: Champion_Select; ItemType: Text; Next: None; Color:255,255,0,255
 //
 //Champions Portait
-Position:80,144; Size:1,.8; Image&Name: UI_Potrait; Stage: Champion_Select; ItemType: Image; Next: None
+Position:80,144; Size:1,.95; Image&Name: UI_Potrait; Stage: Champion_Select; ItemType: Image; Next: None
 //End Portait
 //This is the Character Selection Stage
 Position:585,105; Size:.7,.7; Image&Name: next; Stage: Champion_Select; ItemType: Button; Next: Champion_Select
@@ -30,21 +30,23 @@ Position:550,20; Size:1,1; Image&Name: Stage_Next; Stage: Champion_Select; ItemT
 //Champions Names End
 //
 //
+//
+//
+//
+//
+//
+//
 //Player Details
 Position:160,170; Size:1.2,1; Image&Name: Enter Your Name; Stage: PlayerDetails; ItemType: InputField; Next: PlayerName; Color:255,255,0
-Position:260,130; Size:.7,.7; Image&Name: next; Stage: PlayerDetails; ItemType: Button; Next: PlayerIcon; Color: 0,0,0; First: True
+Position:260,130; Size:.7,.7; Image&Name: continue; Stage: PlayerDetails; ItemType: Button; Next: PlayerIcon; Color: 0,0,0; First: True
 //
 //PlayerDetails2
 Position:120,20; Size:.7,.7; Image&Name: Container; Stage: PlayerIcon; ItemType: Image; Next: None
-Position:145,180; Size:.7,.7; Image&Name: Ryu_head; Stage: PlayerIcon; ItemType: Button; Next: Main; Color: 0,0,0; First: True
-Position:245,180; Size:.7,.7; Image&Name: Anti-Ryu_head; Stage: PlayerIcon; ItemType: Button; Next: Main
-Position:345,180; Size:.7,.7; Image&Name: Cammy_head; Stage: PlayerIcon; ItemType: Button; Next: Main
-Position:445,180; Size:.7,.7; Image&Name: M.Bison_head; Stage: PlayerIcon; ItemType: Button; Next: Main
-Position:145,60; Size:.7,.7; Image&Name: Chun'Li_head; Stage: PlayerIcon; ItemType: Button; Next: Main
-Position:245,60; Size:.7,.7; Image&Name: Fei'Long_head; Stage: PlayerIcon; ItemType: Button; Next: Main
-Position:345,60; Size:.7,.7; Image&Name: Akuma_head; Stage: PlayerIcon; ItemType: Button; Next: Main
-Position:445,61; Size:.7,.7; Image&Name: Ken_head; Stage: PlayerIcon; ItemType: Button; Next: Main
-Position:70,345; Size:30,1; Image&Name: Select An Icon; Stage: PlayerIcon; ItemType: Text; Next: None; Color:255,255,0
+Position:220,40; Size:2,2; Image&Name: Icon; Stage: PlayerIcon; ItemType: Image; Next: Main; Color: 0,0,0; First: True
+Position:200,345; Size:30,1; Image&Name: Select An Icon; Stage: PlayerIcon; ItemType: Text; Next: None; Color:255,255,0; First: False; Font: Algerian
+Position:140,40; Size:.7,.7; Image&Name: left; Stage: PlayerIcon; ItemType: Button; Next: PlayerIcon; Color: 0,0,0; First: False
+Position:420,40; Size:.7,.7; Image&Name: right; Stage: PlayerIcon; ItemType: Button; Next: PlayerIcon; Color: 0,0,0; First: False
+Position:360,0; Size:.7,.7; Image&Name: continue; Stage: PlayerIcon; ItemType: Button; Next: Main; Color: 0,0,0; First: True
 //Player Details End
 //
 //
@@ -122,19 +124,19 @@ Position:60,20; Size:1,1; Image&Name: Back; Stage: Variation_Select; ItemType: B
 //
 //Champions Names_Variation
 Position:60,20; Size:1,1; Image&Name: Back; Stage: Variation_Select; ItemType: Button; Next: Champion_Select
-Position:105,115; Size:12,1; Image&Name: Text_Name; Stage: Variation_Select; ItemType: Text; Next: None; Color:255,255,0
+Position:105,115; Size:12,1; Image&Name: Text_Name; Stage: Variation_Select; ItemType: Text; Next: None; Color:255,255,0; First: False; Font: Constantia
 //Champions Names End
 //
 //
 //Champions Description_Variation
-Position:70,345; Size:10,1; Image&Name: Text_Des_Var; Stage: Variation_Select; ItemType: Text; Next: None; Color:255,255,0
+Position:70,345; Size:10,1; Image&Name: Text_Des_Var; Stage: Variation_Select; ItemType: Text; Next: None; Color:255,255,0; First: False; Font: Constantia
 //Champions Description End
 //
 //
 //
 //Champions Portait_Variation
 Position:230,190; Size:1,1; Image&Name: Variation; Stage: Variation_Select; ItemType: Image; Next: None
-Position:80,144; Size:1,.8; Image&Name: UI_Potrait; Stage: Variation_Select; ItemType: Image; Next: None
+Position:80,144; Size:1,.95; Image&Name: UI_Potrait; Stage: Variation_Select; ItemType: Image; Next: None
 //End Portait
 //
 Position:550,20; Size:1,1; Image&Name: Stage_Next; Stage: Variation_Select; ItemType: Button; Next: Stage_Select
